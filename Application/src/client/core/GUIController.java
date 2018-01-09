@@ -9,9 +9,10 @@ import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.layout.StackPane;
 
-import java.util.ArrayList;
-
 public class GUIController {
+
+    private Listener clientListener;
+    private Client client;
 
     //---------LOGIN PAGE-------------
     @FXML
@@ -265,6 +266,12 @@ public class GUIController {
         this.loginPage.setVisible(false);
         this.loginPage.setDisable(true);
 
+        //test method invoking
+            Object  opParams[] = {client.pid};
+            String  opSig[] = {int.class.getName()};
+            client.connection.invokeMethod(client.factory, "testConnection", opParams, opSig);
+        //end test
+
         if(!loginTextField.getText().equals("")) {
             this.ownerPage.setVisible(true);
             this.ownerPage.setDisable(false);
@@ -413,5 +420,13 @@ public class GUIController {
         if(treatment == null) throw new IllegalArgumentException("The treatment to perform can not be null");
         if(Platform.isFxApplicationThread()) treatment.run();
         else Platform.runLater(treatment);
+    }
+
+    public GUIController(Client client) {
+        this.client = client;
+    }
+
+    public void setListener(Listener clientListener) {
+        this.clientListener = clientListener;
     }
 }
