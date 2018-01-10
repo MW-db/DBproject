@@ -15,7 +15,6 @@ CREATE TABLE Sales(
   Date_to DATETIME NOT NULL,
   ProductID INT NOT NULL,
   Price FLOAT NOT NULL ,
-  Quantity INT NOT NULL,
   PRIMARY KEY (SaleID),
   FOREIGN KEY (ProductID) REFERENCES Products(ProductID)
 );

@@ -4,3 +4,4 @@
 4. Dodano procedurę logowania workerow "procedura_loginWorker.sql"
 5. Dodano procedurę logowania clientow "procedura_loginClient.sql"
 6. Dodano nową tabelę jako tymczasowy koszyk klienta. "table_tempCart.sql"
+7. Dodano funkcje GetTotal(id) zwraca wartoś produktu ze zniżka.
