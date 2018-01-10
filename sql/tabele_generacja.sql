@@ -122,6 +122,7 @@ CREATE TABLE Balance(
 CREATE TABLE itemInTransaction(
   transactionID INT NOT NULL ,
   productID INT NOT NULL ,
+    amount INT,
   FOREIGN KEY (transactionID) REFERENCES Transactions(TransactionID),
   FOREIGN KEY (productID) REFERENCES Products(ProductID) 
 );
