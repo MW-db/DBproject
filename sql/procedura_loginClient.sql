@@ -4,6 +4,6 @@ CREATE PROCEDURE loginClient(IN login VARCHAR(30), IN passwrod VARCHAR(40))
       SIGNAL SQLSTATE '03000';
     END IF;
 
-    SELECT TRUE;
+    SELECT * FROM Clients WHERE Login=login;
 
   END;

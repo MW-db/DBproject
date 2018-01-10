@@ -65,7 +65,7 @@ CREATE TABLE Clients(
   Surname VARCHAR(40) NOT NULL ,
   Company VARCHAR(50),
   Phone VARCHAR(9) NOT NULL ,
-  Adress VARCHAR(150) NOT NULL ,
+  Adress VARCHAR(255) NOT NULL ,
   Wallet FLOAT NOT NULL ,
   PRIMARY KEY (ClientID)
 );
@@ -86,6 +86,7 @@ CREATE TABLE Transactions(
   ClientID INT NOT NULL ,
   TotalPrice FLOAT NOT NULL ,
   NumberOfProducts INT NOT NULL ,
+  Status ENUM("Waiting", "Declined", "Accepted", "Paid"),
   PRIMARY KEY (TransactionID),
   FOREIGN KEY (ClientID) REFERENCES Clients(ClientID)
 );
@@ -106,6 +107,7 @@ CREATE TABLE Workers(
 
 CREATE TABLE Balance(
   Date DATETIME NOT NULL ,
+  Status ENUM("Paid", "Unpaid") ,
   DeliveryID INT,
   WorkerID INT,
   TransactionID INT,
@@ -116,5 +118,12 @@ CREATE TABLE Balance(
   FOREIGN KEY (WorkerID) REFERENCES Workers(WorkerID),
   FOREIGN KEY (TransactionID) REFERENCES Transactions(TransactionID),
   FOREIGN KEY (DeliveryID) REFERENCES Delivery(DeliveryID)
-)
+);
+
+CREATE TABLE itemInTransaction(
+  transactionID INT NOT NULL ,
+  productID INT NOT NULL ,
+  FOREIGN KEY (transactionID) REFERENCES Transactions(TransactionID),
+  FOREIGN KEY (productID) REFERENCES Products(ProductID) 
+);
 

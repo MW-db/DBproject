@@ -15,7 +15,7 @@ CREATE PROCEDURE registerWorker(IN pass VARCHAR(40), IN firstName VARCHAR(40),
       SIGNAL SQLSTATE '01000';
     END IF;
 
-    If (salary > 4000 OR salary < 1500) THEN
+    If (salary > 120 OR salary < 80) THEN
       SIGNAL SQLSTATE '01000';
     END IF;
 

@@ -1,6 +1,6 @@
 CREATE PROCEDURE registerClient(IN login VARCHAR(30), IN pass VARCHAR(40), IN firstName VARCHAR(40),
                                 IN surName VARCHAR(40), IN comapnyName VARCHAR(50), IN phoneNum VARCHAR(9),
-                                IN adress VARCHAR(150))
+                                IN adress VARCHAR(255))
   BEGIN
     IF EXISTS(SELECT * FROM Clients WHERE Login = login) THEN
       SIGNAL SQLSTATE '02000';
