@@ -1,0 +1,5 @@
+1. Tworzymy tabele korzystając ze skryptu "tabele_generacja.sql"
+2. Dodano procedure tworzenia workerow "procedura_dodawanieWorkerow.sql"
+3. Dodano procedurę dodawania użytkownikow "procedura_dodawanieClient.sql"
+4. Dodano procedurę logowania workerow "procedura_loginWorker.sql"
+5. Dodano procedurę logowania clientow "procedura_loginClient.sql"
