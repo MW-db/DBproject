@@ -3,3 +3,4 @@
 3. Dodano procedurę dodawania użytkownikow "procedura_dodawanieClient.sql"
 4. Dodano procedurę logowania workerow "procedura_loginWorker.sql"
 5. Dodano procedurę logowania clientow "procedura_loginClient.sql"
+6. Dodano nową tabelę jako tymczasowy koszyk klienta. "table_tempCart.sql"
