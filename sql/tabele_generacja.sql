@@ -15,7 +15,6 @@ CREATE TABLE Sales(
   Date_to DATE NOT NULL,
   ProductID INT NOT NULL,
   Price FLOAT NOT NULL ,
-  Quantity INT NOT NULL,
   PRIMARY KEY (SaleID),
   FOREIGN KEY (ProductID) REFERENCES Products(ProductID)
 );
@@ -124,6 +123,7 @@ CREATE TABLE Balance(
 CREATE TABLE itemInTransaction(
   transactionID INT NOT NULL ,
   productID INT NOT NULL ,
+    amount INT,
   FOREIGN KEY (transactionID) REFERENCES Transactions(TransactionID),
   FOREIGN KEY (productID) REFERENCES Products(ProductID) 
 );

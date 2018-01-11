@@ -5,3 +5,10 @@
 5. Dodano procedurę logowania clientow "procedura_loginClient.sql"
 6. Dodano procedure tworzenia dostawy "procedura_createDelivery.sql"
 7. Dodano procedure tworzenia dostawy "procedura_updateDelivery.sql"
+8. Dodano nową tabelę jako tymczasowy koszyk klienta. "table_tempCart.sql"
+9. Dodano funkcje GetTotal(id) zwraca wartoś produktu ze zniżka.
+10. Dodano procedure do składania zamowien, "procedure_createTransaction.sql"
+11. Dodano procedure delete transaction, "procedure_deleteTransaction.sql"
+12. Dodano procedurę payTransaction(), "procedure_payTransaction.sql"
+13. Dodano funkcje "functions_all.sql"
+
