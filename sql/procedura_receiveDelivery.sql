@@ -28,7 +28,6 @@ CREATE PROCEDURE receiveDelivery(IN deliveryID INT)
     START TRANSACTION;
      deliveryLoop: LOOP
         IF (usageStorage > capacityStorage) THEN
-          ROLLBACK;
           SELECT 'TOO MUCH PRODUCTS IN STORAGE' AS MESSAGE;
           #LEAVE deliveryLoop;
         END IF;
@@ -48,10 +47,8 @@ CREATE PROCEDURE receiveDelivery(IN deliveryID INT)
           SELECT amountOfProduct = Amount FROM products WHERE productFromCursorID = ProductID;
 
           IF (productTypeUsage + amount > productTypeCapacity) THEN
-            #ROLLBACK;
             SELECT 'TOO MUCH FOOD PRODUCTS IN STORAGE' AS MESSAGE;
             SET err = 1;
-            #LEAVE deliveryLoop;
           END IF;
 
           SET payment = payment + ((amountOfProduct + amount) * priceOfProduct);
