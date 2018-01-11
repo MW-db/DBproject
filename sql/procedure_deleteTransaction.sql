@@ -5,7 +5,7 @@ CREATE PROCEDURE deleteTransaction(IN transaID INT)
     DECLARE size INT;
 
     DECLARE curs CURSOR FOR (SELECT itemInTransaction.productID, itemInTransaction.amount FROM itemInTransaction
-                            WHERE itemInTransaction.transactionID=transID);
+                            WHERE itemInTransaction.transactionID=transaID);
     DECLARE CONTINUE HANDLER FOR NOT FOUND SET done = TRUE;
 
     OPEN curs;
@@ -22,11 +22,13 @@ CREATE PROCEDURE deleteTransaction(IN transaID INT)
         WHERE Products.ProductID = product;
 
       DELETE FROM itemInTransaction
-      WHERE itemInTransaction.transactionID = transID
+      WHERE itemInTransaction.transactionID = transaID
             AND itemInTransaction.productID = product;
 
     END LOOP;
 
-    DELETE FROM Transactions WHERE Transactions.TransactionID=transID;
+    UPDATE Transactions
+      SET Transactions.Status = "Declined"
+      WHERE Transactions.TransactionID = transaID;
 
   END;

@@ -7,3 +7,5 @@
 7. Dodano funkcje GetTotal(id) zwraca wartoś produktu ze zniżka.
 8. Dodano procedure do składania zamowien, "procedure_createTransaction.sql"
 9. Dodano procedure delete transaction, "procedure_deleteTransaction.sql"
+10. Dodano procedurę payTransaction(), "procedure_payTransaction.sql"
+11. Dodano funkcje "functions_all.sql"
