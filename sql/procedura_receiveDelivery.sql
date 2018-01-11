@@ -25,6 +25,7 @@ CREATE PROCEDURE receiveDelivery(IN deliveryID INT)
 
     OPEN cur;
 
+    SET AUTOCOMMIT = 0;
     START TRANSACTION;
      deliveryLoop: LOOP
         IF (usageStorage > capacityStorage) THEN
@@ -102,15 +103,15 @@ CREATE PROCEDURE receiveDelivery(IN deliveryID INT)
 
     SELECT prevBalance = Balance FROM balance ORDER BY Date DESC LIMIT 1;
     IF (done = 1 AND err = 0) THEN
+      COMMIT;
       INSERT INTO balance(Date, Status, DeliveryID, Fee, Expense, Balance)
         VALUES ((SELECT Receiving_date FROM delivery WHERE deliveryID = DeliveryID),
                 "Received", deliveryID, 0, payment, prevBalance - payment);
-      COMMIT;
     ELSE
+      ROLLBACK;
       INSERT INTO balance(Date, Status, DeliveryID, Fee, Expense, Balance)
         VALUES ((SELECT Receiving_date FROM delivery WHERE deliveryID = DeliveryID),
                 "Canceled", deliveryID, 100, payment, prevBalance - payment - 100);
-      ROLLBACK;
     END IF;
 
     DELETE FROM itemsindelivery WHERE DeliveryID = deliveryID;
