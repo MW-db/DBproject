@@ -3,7 +3,7 @@ CREATE TABLE Products(
   Amount INT NOT NULL,
   Price Float NOT NULL,
   Name VARCHAR(50),
-  Expiration_date DATETIME NOT NULL ,
+  Expiration_date DATE NOT NULL ,
   Type ENUM("Food", "Drink", "Other"),
   PRIMARY KEY (ProductID)
 );
@@ -11,8 +11,8 @@ CREATE TABLE Products(
 CREATE TABLE Sales(
   SaleID INT NOT NULL AUTO_INCREMENT,
   Name VARCHAR(50) NOT NULL ,
-  Date_from DATETIME NOT NULL,
-  Date_to DATETIME NOT NULL,
+  Date_from DATE NOT NULL,
+  Date_to DATE NOT NULL,
   ProductID INT NOT NULL,
   Price FLOAT NOT NULL ,
   Quantity INT NOT NULL,
@@ -33,7 +33,7 @@ CREATE TABLE Storage(
 );
 
 CREATE TABLE Log(
-  Date DATETIME NOT NULL ,
+  Date DATE NOT NULL ,
   User VARCHAR(25) ,
   Operation VARCHAR(125),
   Table_name VARCHAR(50),
@@ -44,15 +44,16 @@ CREATE TABLE Log(
 
 CREATE TABLE Delivery(
   DeliveryID INT NOT NULL AUTO_INCREMENT,
-  Order_date DATETIME NOT NULL ,
-  Receiving_date DATETIME NOT NULL ,
-  Status ENUM("Ordered", "Received"),
+  Order_date DATE NOT NULL ,
+  Receiving_date DATE NOT NULL ,
+  Status ENUM("Created", "Ordered", "Received"),
   PRIMARY KEY (DeliveryID)
 );
 
-CREATE TABLE ItemsInDeliver(
+CREATE TABLE ItemsInDelivery(
   DeliveryID INT NOT NULL,
   ProductID INT NOT NULL ,
+  Amount INT NOT NULL ,
   FOREIGN KEY (DeliveryID) REFERENCES Delivery(DeliveryID),
   FOREIGN KEY (ProductID) REFERENCES Products(ProductID)
 );
@@ -75,14 +76,14 @@ CREATE TABLE History(
   ProductID INT NOT NULL ,
   Quantity INT NOT NULL ,
   Price FLOAT NOT NULL ,
-  Data DATETIME NOT NULL,
+  Data DATE NOT NULL,
   FOREIGN KEY (ClientID) REFERENCES Clients(ClientID),
   FOREIGN KEY (ProductID) REFERENCES Products(ProductID)
 );
 
 CREATE TABLE Transactions(
   TransactionID INT NOT NULL AUTO_INCREMENT,
-  Date DATETIME NOT NULL ,
+  Date DATE NOT NULL ,
   ClientID INT NOT NULL ,
   TotalPrice FLOAT NOT NULL ,
   NumberOfProducts INT NOT NULL ,
@@ -100,18 +101,18 @@ CREATE TABLE Workers(
   PESEL VARCHAR(11) NOT NULL ,
   Phone VARCHAR(9) NOT NULL ,
   Salary FLOAT NOT NULL ,
-  ContractFrom DATETIME NOT NULL ,
-  ContractTo DATETIME,
+  ContractFrom DATE NOT NULL ,
+  ContractTo DATE,
   PRIMARY KEY (WorkerID)
 );
 
 CREATE TABLE Balance(
-  Date DATETIME NOT NULL ,
-  Status ENUM("Paid", "Unpaid") ,
+  Date DATE NOT NULL ,
+  Status ENUM("Paid", "Unpaid", "Received", "Canceled") ,
   DeliveryID INT,
   WorkerID INT,
   TransactionID INT,
-  Fee Float NOT NULL ,
+  Fee Float NOT NULL,
   Income FLOAT,
   Expense Float,
   Balance Float NOT NULL ,

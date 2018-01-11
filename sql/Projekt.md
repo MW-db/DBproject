@@ -4,3 +4,6 @@
 4. Dodano procedurę logowania workerow "procedura_loginWorker.sql"
 5. Dodano procedurę logowania clientow "procedura_loginClient.sql"
 6. Dodano nową tabelę jako tymczasowy koszyk klienta. "table_tempCart.sql"
+7. Dodano funkcje tworzenia dostawy "funkcja_createDelivery.sql"
+8. Dodano procedure aktualizacji dostawy "procedura_updateDelivery.sql"
+9. Dodano procedure przyjmowania dostawy "procedura_receiveDelivery.sql"
