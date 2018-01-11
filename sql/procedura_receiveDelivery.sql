@@ -103,7 +103,7 @@ CREATE PROCEDURE receiveDelivery(IN deliveryID INT)
 
       END LOOP;
 
-    SELECT prevBalance = Balance FROM balance;
+    SELECT prevBalance = Balance FROM balance ORDER BY Date DESC LIMIT 1;
     IF (done = 1 AND err = 0) THEN
       INSERT INTO balance(Date, Status, DeliveryID, Fee, Expense, Balance)
         VALUES ((SELECT Receiving_date FROM delivery WHERE deliveryID = DeliveryID),
