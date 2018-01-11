@@ -1,7 +1,7 @@
 CREATE TABLE Products(
   ProductID INT NOT NULL AUTO_INCREMENT,
   Amount INT NOT NULL,
-  Price Float NOT NULL,
+  Price INT NOT NULL,
   Name VARCHAR(50),
   Expiration_date DATE NOT NULL ,
   Type ENUM("Food", "Drink", "Other"),
@@ -14,7 +14,8 @@ CREATE TABLE Sales(
   Date_from DATE NOT NULL,
   Date_to DATE NOT NULL,
   ProductID INT NOT NULL,
-  Price FLOAT NOT NULL ,
+  Price INT NOT NULL ,
+  Quantity INT NOT NULL,
   PRIMARY KEY (SaleID),
   FOREIGN KEY (ProductID) REFERENCES Products(ProductID)
 );
@@ -66,7 +67,7 @@ CREATE TABLE Clients(
   Company VARCHAR(50),
   Phone VARCHAR(9) NOT NULL ,
   Adress VARCHAR(255) NOT NULL ,
-  Wallet FLOAT NOT NULL ,
+  Wallet INT NOT NULL ,
   PRIMARY KEY (ClientID)
 );
 
@@ -74,7 +75,7 @@ CREATE TABLE History(
   ClientID INT NOT NULL ,
   ProductID INT NOT NULL ,
   Quantity INT NOT NULL ,
-  Price FLOAT NOT NULL ,
+  Price INT NOT NULL ,
   Data DATE NOT NULL,
   FOREIGN KEY (ClientID) REFERENCES Clients(ClientID),
   FOREIGN KEY (ProductID) REFERENCES Products(ProductID)
@@ -84,7 +85,7 @@ CREATE TABLE Transactions(
   TransactionID INT NOT NULL AUTO_INCREMENT,
   Date DATE NOT NULL ,
   ClientID INT NOT NULL ,
-  TotalPrice FLOAT NOT NULL ,
+  TotalPrice INT NOT NULL ,
   NumberOfProducts INT NOT NULL ,
   Status ENUM("Waiting", "Declined", "Accepted", "Paid"),
   PRIMARY KEY (TransactionID),
@@ -99,7 +100,7 @@ CREATE TABLE Workers(
   Surname VARCHAR(40) NOT NULL ,
   PESEL VARCHAR(11) NOT NULL ,
   Phone VARCHAR(9) NOT NULL ,
-  Salary FLOAT NOT NULL ,
+  Salary INT NOT NULL ,
   ContractFrom DATE NOT NULL ,
   ContractTo DATE,
   PRIMARY KEY (WorkerID)
@@ -111,10 +112,10 @@ CREATE TABLE Balance(
   DeliveryID INT,
   WorkerID INT,
   TransactionID INT,
-  Fee Float NOT NULL,
-  Income FLOAT,
-  Expense Float,
-  Balance Float NOT NULL ,
+  Fee INT NOT NULL,
+  Income INT,
+  Expense INT,
+  Balance INT NOT NULL ,
   FOREIGN KEY (WorkerID) REFERENCES Workers(WorkerID),
   FOREIGN KEY (TransactionID) REFERENCES Transactions(TransactionID),
   FOREIGN KEY (DeliveryID) REFERENCES Delivery(DeliveryID)

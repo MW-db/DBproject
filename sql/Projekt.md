@@ -12,3 +12,9 @@
 12. Dodano procedurę payTransaction(), "procedure_payTransaction.sql"
 13. Dodano funkcje "functions_all.sql"
 
+6. Dodano nową tabelę jako tymczasowy koszyk klienta. "table_tempCart.sql"
+7. Dodano funkcje tworzenia dostawy "funkcja_createDelivery.sql"
+8. Dodano procedure aktualizacji dostawy "procedura_updateDelivery.sql"
+9. Dodano procedure przyjmowania dostawy "procedura_receiveDelivery.sql"
+10. Dodano procedure anulowania dostawy "procedura_cancelDelivery.sql"
+11. Dodano procedure wyplaty pensji "procedura_paySalary.sql"
