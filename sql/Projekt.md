@@ -11,4 +11,6 @@
 11. Dodano procedure delete transaction, "procedure_deleteTransaction.sql"
 12. Dodano procedurę payTransaction(), "procedure_payTransaction.sql"
 13. Dodano funkcje "functions_all.sql"
-
+14. Dodano triggery do zwracania korygowania kosztow za transakcje "transaction_triggers.sql"
+15. Dodano trigger do aktualizowania stanu magazynu "products_trigger.sql"
+16. Dodano procedurę od dodawania promocji "procedure_addSale.sql"
