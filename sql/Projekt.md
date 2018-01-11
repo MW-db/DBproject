@@ -3,3 +3,5 @@
 3. Dodano procedurę dodawania użytkownikow "procedura_dodawanieClient.sql"
 4. Dodano procedurę logowania workerow "procedura_loginWorker.sql"
 5. Dodano procedurę logowania clientow "procedura_loginClient.sql"
+6. Dodano procedure tworzenia dostawy "procedura_createDelivery.sql"
+7. Dodano procedure tworzenia dostawy "procedura_updateDelivery.sql"
