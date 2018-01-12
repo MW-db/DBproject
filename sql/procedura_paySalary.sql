@@ -39,4 +39,3 @@ CREATE PROCEDURE paySalary()
   CLOSE cur;
     COMMIT ;
 END;
-

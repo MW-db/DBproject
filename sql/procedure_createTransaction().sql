@@ -22,6 +22,10 @@ CREATE PROCEDURE createTransaction(IN clientID INT)
     SET transID = (SELECT MAX(TransactionID) FROM Transactions);
     SET transID = transID + 1;
 
+    IF transID IS NULL THEN
+      SET transID = 1;
+    END IF;
+
     OPEN curs;
 
     START TRANSACTION;

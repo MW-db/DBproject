@@ -21,13 +21,12 @@ CREATE PROCEDURE updateDelivery(IN deliverID INT, IN NproductID INT, IN amount I
     IF ((productTypeCapacity - productTypeUsage) >= amount) THEN
       INSERT INTO itemsInDelivery(DeliveryID, ProductID, Amount)
       VALUES (deliverID, NproductID, amount);
-      INSERT INTO LOG(Date, User, Operation, Table_name, Column_name, Old_value, New_value, STATUS) VALUES
+      INSERT INTO Log(Date, User, Operation, Table_name, Column_name, Old_value, New_value, STATUS) VALUES
       ((SELECT currentDate FROM tempDate), "Worker", "updateDelivery", "productsInDelivery", "", "", NproductID, "SUCCESS");
       ELSE
-        INSERT INTO LOG(Date, User, Operation, Table_name, Column_name, Old_value, New_value, STATUS) VALUES
+        INSERT INTO Log(Date, User, Operation, Table_name, Column_name, Old_value, New_value, STATUS) VALUES
       ((SELECT currentDate FROM tempDate), "Worker", "updateDelivery", "productsInDelivery", "", "", NproductID, "FAILED");
     END IF;
 
     COMMIT ;
   END;
-

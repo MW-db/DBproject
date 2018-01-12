@@ -105,7 +105,7 @@ CREATE PROCEDURE receiveDelivery(IN NdeliveryID INT)
 
         END LOOP;
 
-      SET prevBalance = (SELECT Balance FROM Balance ORDER BY BalanceID LIMIT 1);
+      SET prevBalance = (SELECT Balance FROM Balance ORDER BY BalanceID DESC LIMIT 1);
       IF (done = 1 AND err = 0) THEN
         COMMIT;
         INSERT INTO Balance(Balance.Date, Status, DeliveryID, Fee, Expense, Balance)
@@ -135,4 +135,3 @@ CREATE PROCEDURE receiveDelivery(IN NdeliveryID INT)
       END IF ;
     COMMIT ;
   END;
-

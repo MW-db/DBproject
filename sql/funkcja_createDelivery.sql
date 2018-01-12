@@ -1,15 +1,16 @@
-DELIMITER @
-CREATE FUNCTION createDelivery (orderDate DATE, receivingDate DATE)
-RETURNS INTEGER DETERMINISTIC
+CREATE FUNCTION createDelivery(receivingDate DATE)
+  RETURNS INT
   BEGIN
-    INSERT INTO delivery(Order_date, Receiving_date, Status)
+    DECLARE orderDate DATE;
+    SET orderDate = (SELECT currentDate FROM tempDate);
+    INSERT INTO Delivery(Order_date, Receiving_date, Status)
       VALUES (orderDate, receivingDate, "Created");
     INSERT INTO Log(Date, User, Operation, Table_name, Column_name, Old_value, New_value, STATUS) VALUES
-      (NOW(), "Worker", "createDelivery", "Delivery", "", "", "", "SUCCESS");
+      (orderDate, "Worker", "createDelivery", "Delivery", "", "", "", "SUCCESS");
+
     RETURN (SELECT DeliveryID
-            FROM delivery
+            FROM Delivery
             WHERE Order_date = orderDate
                   AND Receiving_date = receivingDate
                   AND Status = "Created");
-  END@
-DELIMITER ;
+  END;
