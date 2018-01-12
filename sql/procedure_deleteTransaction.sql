@@ -9,7 +9,8 @@ CREATE PROCEDURE deleteTransaction(IN transaID INT)
     DECLARE CONTINUE HANDLER FOR NOT FOUND SET done = TRUE;
 
     OPEN curs;
-
+    
+    IF EXISTS(SELECT * FROM Transactions WHERE TransactionID=transaID AND Status="Waiting") THEN 
 
     read_loop: LOOP
       FETCH curs INTO product, size;
@@ -31,4 +32,8 @@ CREATE PROCEDURE deleteTransaction(IN transaID INT)
       SET Transactions.Status = "Declined"
       WHERE Transactions.TransactionID = transaID;
 
+    COMMIT ;
+    END IF ;
+
   END;
+

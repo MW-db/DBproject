@@ -6,7 +6,7 @@ CREATE PROCEDURE nextDay(IN date DATE)
     DECLARE curDate DATE;
     DECLARE curExpense INT DEFAULT 0;
     DECLARE prevBalance INT;
-    DECLARE cur CURSOR FOR SELECT Date, Expense FROM balance WHERE Status = "Unpaid" AND WorkerID IS NULL;
+    DECLARE cur CURSOR FOR SELECT Date, Expense FROM Balance WHERE Status = "Unpaid" AND WorkerID IS NULL;
     DECLARE CONTINUE HANDLER FOR NOT FOUND SET end = 1;
 
     CALL removeExpirationProducts(date);
@@ -14,9 +14,9 @@ CREATE PROCEDURE nextDay(IN date DATE)
     CALL paySalary();
 
     OPEN cur;
-    SELECT prevBalance = Balance FROM balance ORDER BY Date DESC LIMIT 1;
+    SET prevBalance = (SELECT Balance FROM Balance ORDER BY Date DESC LIMIT 1);
 
-    SET AUTOCOMMIT = 0;
+    SET autocommit = 0;
     START TRANSACTION;
 
       payLoop: LOOP
@@ -31,7 +31,7 @@ CREATE PROCEDURE nextDay(IN date DATE)
           LEAVE payLoop;
         END IF;
         SET prevBalance = prevBalance - curExpense;
-        UPDATE balance SET Status = "Paid", Balance = prevBalance - curExpense
+        UPDATE Balance SET Status = "Paid", Balance = prevBalance - curExpense
           WHERE WorkerID IS NULL AND Date = curDate AND Status = "Unpaid";
       END LOOP;
     IF (done = 1) THEN

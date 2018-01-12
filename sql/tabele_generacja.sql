@@ -46,11 +46,11 @@ CREATE TABLE Delivery(
   DeliveryID INT NOT NULL AUTO_INCREMENT,
   Order_date DATE NOT NULL ,
   Receiving_date DATE NOT NULL ,
-  Status ENUM("Created", "Ordered", "Received"),
+  Status ENUM("Created", "Ordered", "Received", "Canceled"),
   PRIMARY KEY (DeliveryID)
 );
 
-CREATE TABLE ItemsInDelivery(
+CREATE TABLE itemsInDelivery(
   DeliveryID INT NOT NULL,
   ProductID INT NOT NULL ,
   Amount INT NOT NULL ,
