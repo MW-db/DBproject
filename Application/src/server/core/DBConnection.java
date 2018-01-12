@@ -1,8 +1,6 @@
 package server.core;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.SQLException;
+import java.sql.*;
 
 public class DBConnection {
     private Connection connection;
@@ -14,21 +12,58 @@ public class DBConnection {
         System.out.println(">> Connecting database...");
 
         try {
-            connection = DriverManager.getConnection(url, username, password
-            System.out.println(">> Database connected!");
+            connection = DriverManager.getConnection(url, username, password);
+            System.out.println(">> Database connected");
         } catch (SQLException e) {
             throw new IllegalStateException("Cannot connect the database!", e);
         }
     }
 
-    public void getRecord() {
-        String sql = "SELECT * FROM `stackoverflow`";
+    /*public void getRecord(String query) {
+        Statement stmt;
         try {
-            PreparedStatement statement = mysqlConnect.connect().prepareStatement(sql);
+            stmt = connection.createStatement();
+            ResultSet rs = stmt.executeQuery(query);
+            while (rs.next()) {
+                int balance = rs.getInt("Balance");
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }*/
+
+    public void executeSQLStatement() {
+        try {
+            /* execute procedure with parameters
+            CallableStatement cs = connection.prepareCall("{call registerClient(?,?,?,?,?,?,?)}");
+            cs.setString(1, "qwerty");
+            cs.setString(2, "123456");
+            cs.setString(3, "abc");
+            cs.setString(4, "zxc");
+            cs.setString(5, "2018-01-07");
+            cs.setString(6, "123456789");
+            cs.setString(7, "abc 3/4");
+            cs.execute();*/
+
+            /* execute function with parameters and get return value
+            CallableStatement cs = connection.prepareCall("{? = call createDelivery(?, ?)}");
+            cs.setString(2, "2018-01-07");
+            cs.setString(3, "2018-01-09");
+            cs.registerOutParameter(1, java.sql.Types.INTEGER);
+            cs.execute();
+
+            int res = cs.getInt(1);
+            System.out.println(">> Function result = " + res);
+            */
+
+            CallableStatement cs = connection.prepareCall("{call paySalary()}");
+            cs.execute();
+            System.out.println("TEST::Procedure executed correctly");
 
         } catch (SQLException e) {
             e.printStackTrace();
         }
+
     }
 
     public void disconnect() {
@@ -36,6 +71,7 @@ public class DBConnection {
             try {
                 connection.close();
                 connection = null;
+                System.out.println(">> Database disconnected");
             } catch (SQLException e) {
                 e.printStackTrace();
             }
