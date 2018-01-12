@@ -22,5 +22,9 @@ BEGIN
         VALUES (date, "Unpaid", curWorkerID, 0, curSalary, prevBalance);
     END LOOP;
   CLOSE cur;
+
+  INSERT INTO Log(Date, User, Operation, Table_name, Column_name, Old_value, New_value, STATUS) VALUES
+    (NOW(), "Admin", "setSalaryToPay", "Balance", "", "", "", "SUCESS");
+
 END$$
 DELIMITER ;

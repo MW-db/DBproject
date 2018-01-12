@@ -25,6 +25,8 @@ BEGIN
       IF (curExpense > prevBalance) THEN
         ROLLBACK;
         SELECT 'NOT ENOUGH MONEY' AS MESSAGE;
+        INSERT INTO LOG(Date, User, Operation, Table_name, Column_name, Old_value, New_value, STATUS) VALUES
+          (NOW(), "Admin", "PaySalary", "Balance", "", "", "", "FAILED");
         LEAVE payLoop;
       END IF;
       SET prevBalance = prevBalance - curExpense;
@@ -32,6 +34,8 @@ BEGIN
         WHERE WorkerID = curWorkerID AND Date = curDate AND Status = "Unpaid";
     END LOOP;
   IF (done = 1) THEN
+    INSERT INTO LOG(Date, User, Operation, Table_name, Column_name, Old_value, New_value, STATUS) VALUES
+          (NOW(), "Admin", "PaySalary", "Balance", "", "", "", "SUCCESS");
     COMMIT;
   END IF;
   CLOSE cur;

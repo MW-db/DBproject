@@ -1,4 +1,4 @@
-CREATE PROCEDURE updateDelivery(IN deliveryID INT, IN productID INT, IN amount INT)
+CREATE PROCEDURE updateDelivery(IN deliverID INT, IN productID INT, IN amount INT)
   BEGIN
     DECLARE productTypeUsage INT;
     DECLARE productTypeCapacity INT;
@@ -20,6 +20,11 @@ CREATE PROCEDURE updateDelivery(IN deliveryID INT, IN productID INT, IN amount I
 
     IF (productTypeCapacity - productTypeUsage >= amount) THEN
       INSERT INTO itemsindelivery(DeliveryID, ProductID, Amount)
-      VALUES (deliveryID, productID, amount);
+      VALUES (deliverID, productID, amount);
+      INSERT INTO LOG(Date, User, Operation, Table_name, Column_name, Old_value, New_value, STATUS) VALUES
+      (NOW(), "Worker", "updateDelivery", "productsInDelivery", "", "", productID, "SUCCESS");
     END IF;
+
+    INSERT INTO LOG(Date, User, Operation, Table_name, Column_name, Old_value, New_value, STATUS) VALUES
+      (NOW(), "Worker", "updateDelivery", "productsInDelivery", "", "", productID, "FAILED");
   END;

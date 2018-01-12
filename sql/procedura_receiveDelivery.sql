@@ -107,11 +107,17 @@ CREATE PROCEDURE receiveDelivery(IN deliveryID INT)
       INSERT INTO balance(Date, Status, DeliveryID, Fee, Expense, Balance)
         VALUES ((SELECT Receiving_date FROM delivery WHERE deliveryID = DeliveryID),
                 "Received", deliveryID, 0, payment, prevBalance - payment);
+
+      INSERT INTO Log(Date, User, Operation, Table_name, Column_name, Old_value, New_value, STATUS) VALUES
+        (NOW(), "Worker", "ReceiveDelivery", "Delivery", "", "", "", "SUCCESS");
     ELSE
       ROLLBACK;
       INSERT INTO balance(Date, Status, DeliveryID, Fee, Expense, Balance)
         VALUES ((SELECT Receiving_date FROM delivery WHERE deliveryID = DeliveryID),
                 "Canceled", deliveryID, 100, payment, prevBalance - payment - 100);
+
+      INSERT INTO Log(Date, User, Operation, Table_name, Column_name, Old_value, New_value, STATUS) VALUES
+        (NOW(), "Worker", "ReceiveDelivery", "Delivery", "", "", "", "FAILED");
     END IF;
 
     DELETE FROM itemsindelivery WHERE DeliveryID = deliveryID;

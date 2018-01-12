@@ -38,5 +38,8 @@ CREATE PROCEDURE nextDay(IN date DATE)
       COMMIT;
     END IF;
     CLOSE cur;
+
+    INSERT INTO Log(Date, User, Operation, Table_name, Column_name, Old_value, New_value, STATUS) VALUES
+      (NOW(), "Admin", "nextDay", "", "", "", "", "SUCESS");
   END$$
 DELIMITER ;

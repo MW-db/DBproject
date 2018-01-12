@@ -34,6 +34,9 @@ CREATE PROCEDURE cancelDelivery(IN deliveryID INT)
     DELETE FROM itemsindelivery WHERE DeliveryID = deliveryID;
     DELETE FROM delivery WHERE DeliveryID = deliveryID;
 
+    INSERT INTO LOG(Date, User, Operation, Table_name, Column_name, Old_value, New_value, STATUS) VALUES
+      (NOW(), "Worker", "cancelDelivery", "Delivery", "", deliveryID, "", "SUCCESS");
+
     CLOSE cur;
   END$$
 DELIMITER ;
