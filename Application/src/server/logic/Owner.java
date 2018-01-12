@@ -30,6 +30,17 @@ public class Owner extends NotificationBroadcasterSupport implements OwnerMBean{
                 "W#" + dataStr));
     }
 
+    public void getClientList() {
+        String query = "SELECT Name, Surname FROM clients";
+        ArrayList<String> data = server.dbConnection.getRecords(query);
+        String dataStr = "";
+        for (String s:data) {
+            dataStr = dataStr.concat(s);
+        }
+        sendNotification(new Notification(String.valueOf(pid), this, 001100110011,
+                "C#" + dataStr));
+    }
+
     public void backupDB() {
         DBBackup.backupDB();
     }

@@ -7,6 +7,7 @@ import javax.management.ObjectName;
 
 public class Listener implements NotificationListener {
     private GUIController controller;
+    private String[] list;
 
     public Listener(GUIController controller) {
         this.controller = controller;
@@ -17,15 +18,24 @@ public class Listener implements NotificationListener {
     {
         switch (notification.getMessage().charAt(0)) {
             case('N')://New user
-                System.out.println("Received notification: " + notification.getMessage().substring(2));
                 if (notification.getMessage().substring(2).equals(Integer.toString(controller.client.pid))) {
                     createUser();
                     controller.changeViewAfterLogin();
                 }
                 break;
-            case('W')://New user
-                System.out.println("Received notification: " + notification.getMessage().substring(2));
-
+            case('W')://workers list
+                String[] listW = notification.getMessage().substring(3).split(",");
+                controller.run(() -> {
+                    controller.workers.setAll(listW);
+                    controller.workersTable.setItems(controller.workers);
+                });
+                break;
+            case('C')://clients list
+                String[] listC = notification.getMessage().substring(3).split(",");
+                controller.run(() -> {
+                    controller.clients.setAll(listC);
+                    controller.clientsTable.setItems(controller.clients);
+                });
                 break;
             default:
         }
@@ -63,6 +73,7 @@ public class Listener implements NotificationListener {
             Object  opParams[] = {};
             String  opSig[] = {};
             controller.client.connection.invokeMethod(controller.client.ownerObj, "getWorkerList", opParams, opSig);
+            controller.client.connection.invokeMethod(controller.client.ownerObj, "getClientList", opParams, opSig);
         }
     }
 }

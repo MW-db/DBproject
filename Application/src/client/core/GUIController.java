@@ -82,15 +82,15 @@ public class GUIController {
     @FXML
     private Button ownerExitButton;
     @FXML
-    private TableView<String> clientsTable;
+    public TableView<String> clientsTable;
     @FXML
-    private TableView<String> workersTable;
+    public TableView<String> workersTable;
     @FXML
-    private TableView<String> infoTable;
+    public TableView<String> infoTable;
     @FXML
-    private TableView<String> deliveryWaitingTable;
+    public TableView<String> deliveryWaitingTable;
     @FXML
-    private TableView<String> deliveryIncomingTable;
+    public TableView<String> deliveryIncomingTable;
     @FXML
     private TableColumn<String, String> workersColumn;
     @FXML
@@ -344,28 +344,28 @@ public class GUIController {
 
 
     //====== OWNER OBSERVABLE =======
-    private ObservableList<String> workers;
-    private ObservableList<String> clients;
-    private ObservableList<String> deliveryInc;
-    private ObservableList<String> deliveryWait;
-    private ObservableList<String> info;
+    public ObservableList<String> workers;
+    public ObservableList<String> clients;
+    public ObservableList<String> deliveryInc;
+    public ObservableList<String> deliveryWait;
+    public ObservableList<String> info;
 
     //====== WORKER OBSERVABLE =======
-    private ObservableList<String> workerClOrder;
-    private ObservableList<String> workerDeliveryInc;
-    private ObservableList<String> workerDeliveryWait;
+    public ObservableList<String> workerClOrder;
+    public ObservableList<String> workerDeliveryInc;
+    public ObservableList<String> workerDeliveryWait;
 
     //====== CLIENT OBSERVABLE =======
-    private ObservableList<String> prevTrans;
-    private ObservableList<String> productList;
-    private ObservableList<String> cart;
+    public ObservableList<String> prevTrans;
+    public ObservableList<String> productList;
+    public ObservableList<String> cart;
 
     //====== CREATE DELIVERY OBSERVABLE =======
-    private ObservableList<ThreeStringClassForTable> createDeliveryProduct;
-    private ObservableList<ThreeStringClassForTable> createDeliveryCart;
+    public ObservableList<ThreeStringClassForTable> createDeliveryProduct;
+    public ObservableList<ThreeStringClassForTable> createDeliveryCart;
 
     //====== CREATE SALES OBSERVABLE =======
-    private ObservableList<SixStringClassForTable> createSalesProduct;
+    public ObservableList<SixStringClassForTable> createSalesProduct;
 
 
 
