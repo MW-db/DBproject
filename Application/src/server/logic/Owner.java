@@ -20,7 +20,7 @@ public class Owner extends NotificationBroadcasterSupport implements OwnerMBean{
     }
 
     public void getWorkerList() {
-        String query = "SELECT Name, Surname FROM workers";
+        String query = "SELECT Name, Surname FROM Workers";
         ArrayList<String> data = server.dbConnection.getRecords(query);
         String dataStr = "";
         for (String s:data) {
@@ -31,7 +31,7 @@ public class Owner extends NotificationBroadcasterSupport implements OwnerMBean{
     }
 
     public void getClientList() {
-        String query = "SELECT Name, Surname FROM clients";
+        String query = "SELECT Name, Surname FROM Clients";
         ArrayList<String> data = server.dbConnection.getRecords(query);
         String dataStr = "";
         for (String s:data) {
@@ -39,6 +39,22 @@ public class Owner extends NotificationBroadcasterSupport implements OwnerMBean{
         }
         sendNotification(new Notification(String.valueOf(pid), this, 001100110011,
                 "C#" + dataStr));
+    }
+
+    public void removeWorker(String worker) {
+        String[] workerName = worker.split(" ");
+        //String query = "DELETE FROM workers WHERE Name = \"" + workerName[0] + "\" AND Surname = \"" + workerName[1] + "\"";
+        String query = "DELETE FROM Workers WHERE WorkerID = 1";
+        System.out.println(query);
+        server.dbConnection.executeStm(query);
+        getWorkerList();
+    }
+
+    public void removeClient(String client) {
+        String[] clientName = client.split(" ");
+        String query = "DELETE FROM Clients WHERE Name = \"" + clientName[0] + "\" AND Surname = \"" + clientName[1] + "\"";
+        server.dbConnection.executeStm(query);
+        getClientList();
     }
 
     public void backupDB() {

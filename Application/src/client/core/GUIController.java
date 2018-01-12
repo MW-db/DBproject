@@ -131,13 +131,17 @@ public class GUIController {
     @FXML
     private Button workerCreateDeliveryButton;
     @FXML
-    private TableView<String> clientsOrderListTable;
+    private TableView<ThreeStringClassForTable> clientsOrderListTable;
     @FXML
     private TableView<String> waitingDeliveryTable;
     @FXML
     private TableView<String> goingDeliveryTable;
     @FXML
-    private TableColumn<String, String> clientsOrderListColumn;
+    private TableColumn clientsOrderListColumn;
+    @FXML
+    private TableColumn clientsOrderPriceColumn;
+    @FXML
+    private TableColumn clientsOrderDateColumn;
     @FXML
     private TableColumn<String, String> waitingDeliveryColumn;
     @FXML
@@ -351,7 +355,7 @@ public class GUIController {
     public ObservableList<String> info;
 
     //====== WORKER OBSERVABLE =======
-    public ObservableList<String> workerClOrder;
+    public ObservableList<ThreeStringClassForTable> workerClOrder;
     public ObservableList<String> workerDeliveryInc;
     public ObservableList<String> workerDeliveryWait;
 
@@ -412,7 +416,9 @@ public class GUIController {
 
         //WORKER TABLE
         workerClOrder = FXCollections.observableArrayList();
-        clientsOrderListColumn.setCellValueFactory(param -> new ReadOnlyStringWrapper(param.getValue()));
+        clientsOrderListColumn.setCellValueFactory(new PropertyValueFactory<>("Order"));
+        clientsOrderPriceColumn.setCellValueFactory(new PropertyValueFactory<>("Price"));
+        clientsOrderDateColumn.setCellValueFactory(new PropertyValueFactory<>("Date"));
         clientsOrderListTable.setItems(workerClOrder);
 
         workerDeliveryInc = FXCollections.observableArrayList();
@@ -509,7 +515,10 @@ public class GUIController {
     }
 
     public void removeWorkerOnClick(ActionEvent event) {
-
+        String str = workersTable.getSelectionModel().getSelectedItem();
+        Object  opParams[] = {str};
+        String  opSig[] = {String.class.getName()};
+        client.connection.invokeMethod(client.ownerObj, "removeWorker", opParams, opSig);
     }
 
     public void addClientOnClick(ActionEvent event) {
@@ -521,7 +530,10 @@ public class GUIController {
     }
 
     public void removeClientOnClick(ActionEvent event) {
-
+        String str = clientsTable.getSelectionModel().getSelectedItem();
+        Object  opParams[] = {str};
+        String  opSig[] = {String.class.getName()};
+        client.connection.invokeMethod(client.ownerObj, "removeClient", opParams, opSig);
     }
 
     public void dumpDbOnClick(ActionEvent event) {

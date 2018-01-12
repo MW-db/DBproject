@@ -5,6 +5,10 @@ public interface OwnerMBean {
 
     void getClientList();
 
+    void removeWorker(String worker);
+
+    void removeClient(String client);
+
     void backupDB();
 
     void restoreDB();

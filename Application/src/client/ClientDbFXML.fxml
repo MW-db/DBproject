@@ -290,132 +290,6 @@
                </StackPane.margin>
             </Button>
          </children></StackPane>
-      <StackPane fx:id="workerPage" disable="true" prefHeight="150.0" prefWidth="200.0" visible="false">
-         <children>
-            <Button fx:id="workerExitButton" mnemonicParsing="false" onAction="#exitOnClick" text="EXIT" textFill="#fc0101" StackPane.alignment="BOTTOM_RIGHT">
-               <font>
-                  <Font name="System Bold Italic" size="14.0" />
-               </font>
-               <StackPane.margin>
-                  <Insets bottom="20.0" right="20.0" />
-               </StackPane.margin>
-            </Button>
-            <Label text="Welcome back worker" StackPane.alignment="TOP_LEFT">
-               <StackPane.margin>
-                  <Insets left="40.0" top="20.0" />
-               </StackPane.margin>
-               <font>
-                  <Font name="System Bold Italic" size="24.0" />
-               </font>
-            </Label>
-            <Button fx:id="workerAcceptOrderButton" mnemonicParsing="false" onAction="#workerAcceptOrderOnClick" text="Accept order" StackPane.alignment="TOP_LEFT">
-               <StackPane.margin>
-                  <Insets left="105.0" top="480.0" />
-               </StackPane.margin>
-            </Button>
-            <Button fx:id="workerDeclineOrderButton" mnemonicParsing="false" onAction="#workerDeclineOrderOnClick" text="Decline order" StackPane.alignment="TOP_LEFT">
-               <StackPane.margin>
-                  <Insets left="105.0" top="530.0" />
-               </StackPane.margin>
-            </Button>
-            <Button fx:id="workerCreateDeliveryButton" mnemonicParsing="false" onAction="#workerCreateDeliveryOnClick" text="Create delivery" StackPane.alignment="TOP_LEFT">
-               <StackPane.margin>
-                  <Insets left="350.0" top="530.0" />
-               </StackPane.margin>
-            </Button>
-            <Button fx:id="workerReceiveDeliveryButton" mnemonicParsing="false" onAction="#workerReceiveDeliveryOnClick" text="Receive delivery" StackPane.alignment="TOP_LEFT">
-               <StackPane.margin>
-                  <Insets left="350.0" top="480.0" />
-               </StackPane.margin>
-            </Button>
-            <Label fx:id="workerIncomeLabel" alignment="CENTER" maxHeight="40.0" maxWidth="150.0" minHeight="40.0" minWidth="150.0" prefHeight="40.0" prefWidth="150.0" text="YOUR INCOME" textFill="#20f80d" StackPane.alignment="TOP_CENTER">
-               <font>
-                  <Font name="System Bold Italic" size="13.0" />
-               </font>
-               <StackPane.margin>
-                  <Insets left="400.0" top="100.0" />
-               </StackPane.margin>
-            </Label>
-            <Label fx:id="workerExpensesLabel" alignment="CENTER" maxHeight="40.0" maxWidth="150.0" minHeight="40.0" minWidth="150.0" prefHeight="40.0" prefWidth="150.0" text="YOUR EXPENSES" textFill="#ff0404" StackPane.alignment="TOP_CENTER">
-               <font>
-                  <Font name="System Bold Italic" size="13.0" />
-               </font>
-               <StackPane.margin>
-                  <Insets left="400.0" top="150.0" />
-               </StackPane.margin>
-            </Label>
-            <Label fx:id="workerBalanceLabel" alignment="CENTER" maxHeight="40.0" maxWidth="150.0" minHeight="40.0" minWidth="150.0" prefHeight="40.0" prefWidth="150.0" text="YOUR BALANCE" StackPane.alignment="TOP_CENTER">
-               <font>
-                  <Font name="System Bold Italic" size="13.0" />
-               </font>
-               <StackPane.margin>
-                  <Insets left="400.0" top="200.0" />
-               </StackPane.margin>
-            </Label>
-            <Label fx:id="workerOtherStatusLabel" alignment="CENTER" minHeight="30.0" minWidth="70.0" text="X/Y" StackPane.alignment="TOP_CENTER">
-               <StackPane.margin>
-                  <Insets left="500.0" top="400.0" />
-               </StackPane.margin>
-            </Label>
-            <Label fx:id="workerDrinkStatusLabel" alignment="CENTER" minHeight="30.0" minWidth="70.0" text="X/Y" StackPane.alignment="TOP_CENTER">
-               <StackPane.margin>
-                  <Insets left="500.0" top="350.0" />
-               </StackPane.margin>
-            </Label>
-            <Label fx:id="workerFoodStatusLabel" alignment="CENTER" minHeight="30.0" minWidth="70.0" text="X/Y" StackPane.alignment="TOP_CENTER">
-               <StackPane.margin>
-                  <Insets left="500.0" top="300.0" />
-               </StackPane.margin>
-            </Label>
-            <Label minHeight="30.0" minWidth="70.0" text="FOOD:" StackPane.alignment="TOP_CENTER">
-               <StackPane.margin>
-                  <Insets left="300.0" top="300.0" />
-               </StackPane.margin>
-            </Label>
-            <Label minHeight="30.0" minWidth="70.0" text="OTHERS:" StackPane.alignment="TOP_CENTER">
-               <StackPane.margin>
-                  <Insets left="300.0" top="400.0" />
-               </StackPane.margin>
-            </Label>
-            <Label minHeight="30.0" minWidth="70.0" text="DRINKS:" StackPane.alignment="TOP_CENTER">
-               <StackPane.margin>
-                  <Insets left="300.0" top="350.0" />
-               </StackPane.margin>
-            </Label>
-            <Label fx:id="workerDateLabel" alignment="CENTER" prefHeight="25.0" prefWidth="100.0" text="DATE" StackPane.alignment="TOP_RIGHT">
-               <font>
-                  <Font name="System Bold Italic" size="13.0" />
-               </font>
-               <StackPane.margin>
-                  <Insets right="50.0" top="50.0" />
-               </StackPane.margin>
-            </Label>
-            <TableView fx:id="waitingDeliveryTable" maxHeight="150.0" maxWidth="180.0" minHeight="150.0" minWidth="180.0" prefHeight="150.0" prefWidth="180.0" StackPane.alignment="TOP_LEFT">
-               <columns>
-                  <TableColumn fx:id="waitingDeliveryColumn" prefWidth="199.0" text="DELIVERY  - WAITING" />
-               </columns>
-               <StackPane.margin>
-                  <Insets left="300.0" top="100.0" />
-               </StackPane.margin>
-            </TableView>
-            <TableView fx:id="clientsOrderListTable" maxHeight="350.0" maxWidth="200.0" minHeight="350.0" minWidth="200.0" prefHeight="350.0" prefWidth="200.0" StackPane.alignment="TOP_LEFT">
-               <columns>
-                  <TableColumn fx:id="clientsOrderListColumn" prefWidth="199.0" text="CLIENTS ORDERS" />
-               </columns>
-               <StackPane.margin>
-                  <Insets left="50.0" top="100.0" />
-               </StackPane.margin>
-            </TableView>
-            <TableView fx:id="goingDeliveryTable" maxHeight="150.0" maxWidth="180.0" minHeight="150.0" minWidth="180.0" prefHeight="150.0" prefWidth="180.0" StackPane.alignment="TOP_LEFT">
-               <columns>
-                  <TableColumn fx:id="goingDeliveryColumn" prefWidth="199.0" text="DELIVERY -  INCOMING" />
-               </columns>
-               <StackPane.margin>
-                  <Insets left="300.0" top="300.0" />
-               </StackPane.margin>
-            </TableView>
-         </children>
-      </StackPane>
       <StackPane fx:id="clientPage" disable="true" prefHeight="150.0" prefWidth="200.0" visible="false">
          <children>
             <TableView fx:id="previousTransactionTable" maxHeight="150.0" maxWidth="180.0" minHeight="150.0" minWidth="180.0" prefHeight="150.0" prefWidth="180.0" StackPane.alignment="TOP_CENTER">
@@ -884,6 +758,134 @@
                   </StackPane>
                </content>
             </DialogPane>
+         </children>
+      </StackPane>
+      <StackPane fx:id="workerPage" disable="true" prefHeight="150.0" prefWidth="200.0" visible="false">
+         <children>
+            <Button fx:id="workerExitButton" mnemonicParsing="false" onAction="#exitOnClick" text="EXIT" textFill="#fc0101" StackPane.alignment="BOTTOM_RIGHT">
+               <font>
+                  <Font name="System Bold Italic" size="14.0" />
+               </font>
+               <StackPane.margin>
+                  <Insets bottom="20.0" right="20.0" />
+               </StackPane.margin>
+            </Button>
+            <Label text="Welcome back worker" StackPane.alignment="TOP_LEFT">
+               <StackPane.margin>
+                  <Insets left="40.0" top="20.0" />
+               </StackPane.margin>
+               <font>
+                  <Font name="System Bold Italic" size="24.0" />
+               </font>
+            </Label>
+            <Button fx:id="workerAcceptOrderButton" mnemonicParsing="false" onAction="#workerAcceptOrderOnClick" text="Accept order" StackPane.alignment="TOP_LEFT">
+               <StackPane.margin>
+                  <Insets left="105.0" top="480.0" />
+               </StackPane.margin>
+            </Button>
+            <Button fx:id="workerDeclineOrderButton" mnemonicParsing="false" onAction="#workerDeclineOrderOnClick" text="Decline order" StackPane.alignment="TOP_LEFT">
+               <StackPane.margin>
+                  <Insets left="105.0" top="530.0" />
+               </StackPane.margin>
+            </Button>
+            <Button fx:id="workerCreateDeliveryButton" mnemonicParsing="false" onAction="#workerCreateDeliveryOnClick" text="Create delivery" StackPane.alignment="TOP_LEFT">
+               <StackPane.margin>
+                  <Insets left="450.0" top="530.0" />
+               </StackPane.margin>
+            </Button>
+            <Button fx:id="workerReceiveDeliveryButton" mnemonicParsing="false" onAction="#workerReceiveDeliveryOnClick" text="Receive delivery" StackPane.alignment="TOP_LEFT">
+               <StackPane.margin>
+                  <Insets left="450.0" top="480.0" />
+               </StackPane.margin>
+            </Button>
+            <Label fx:id="workerIncomeLabel" alignment="CENTER" maxHeight="40.0" maxWidth="150.0" minHeight="40.0" minWidth="150.0" prefHeight="40.0" prefWidth="150.0" text="YOUR INCOME" textFill="#20f80d" StackPane.alignment="TOP_CENTER">
+               <font>
+                  <Font name="System Bold Italic" size="13.0" />
+               </font>
+               <StackPane.margin>
+                  <Insets left="500.0" top="100.0" />
+               </StackPane.margin>
+            </Label>
+            <Label fx:id="workerExpensesLabel" alignment="CENTER" maxHeight="40.0" maxWidth="150.0" minHeight="40.0" minWidth="150.0" prefHeight="40.0" prefWidth="150.0" text="YOUR EXPENSES" textFill="#ff0404" StackPane.alignment="TOP_CENTER">
+               <font>
+                  <Font name="System Bold Italic" size="13.0" />
+               </font>
+               <StackPane.margin>
+                  <Insets left="500.0" top="150.0" />
+               </StackPane.margin>
+            </Label>
+            <Label fx:id="workerBalanceLabel" alignment="CENTER" maxHeight="40.0" maxWidth="150.0" minHeight="40.0" minWidth="150.0" prefHeight="40.0" prefWidth="150.0" text="YOUR BALANCE" StackPane.alignment="TOP_CENTER">
+               <font>
+                  <Font name="System Bold Italic" size="13.0" />
+               </font>
+               <StackPane.margin>
+                  <Insets left="500.0" top="200.0" />
+               </StackPane.margin>
+            </Label>
+            <Label fx:id="workerOtherStatusLabel" alignment="CENTER" minHeight="30.0" minWidth="70.0" text="X/Y" StackPane.alignment="TOP_CENTER">
+               <StackPane.margin>
+                  <Insets left="550.0" top="400.0" />
+               </StackPane.margin>
+            </Label>
+            <Label fx:id="workerDrinkStatusLabel" alignment="CENTER" minHeight="30.0" minWidth="70.0" text="X/Y" StackPane.alignment="TOP_CENTER">
+               <StackPane.margin>
+                  <Insets left="550.0" top="350.0" />
+               </StackPane.margin>
+            </Label>
+            <Label fx:id="workerFoodStatusLabel" alignment="CENTER" minHeight="30.0" minWidth="70.0" text="X/Y" StackPane.alignment="TOP_CENTER">
+               <StackPane.margin>
+                  <Insets left="550.0" top="300.0" />
+               </StackPane.margin>
+            </Label>
+            <Label minHeight="30.0" minWidth="70.0" text="FOOD:" StackPane.alignment="TOP_CENTER">
+               <StackPane.margin>
+                  <Insets left="400.0" top="300.0" />
+               </StackPane.margin>
+            </Label>
+            <Label minHeight="30.0" minWidth="70.0" text="OTHERS:" StackPane.alignment="TOP_CENTER">
+               <StackPane.margin>
+                  <Insets left="400.0" top="400.0" />
+               </StackPane.margin>
+            </Label>
+            <Label minHeight="30.0" minWidth="70.0" text="DRINKS:" StackPane.alignment="TOP_CENTER">
+               <StackPane.margin>
+                  <Insets left="400.0" top="350.0" />
+               </StackPane.margin>
+            </Label>
+            <Label fx:id="workerDateLabel" alignment="CENTER" prefHeight="25.0" prefWidth="100.0" text="DATE" StackPane.alignment="TOP_RIGHT">
+               <font>
+                  <Font name="System Bold Italic" size="13.0" />
+               </font>
+               <StackPane.margin>
+                  <Insets right="50.0" top="50.0" />
+               </StackPane.margin>
+            </Label>
+            <TableView fx:id="waitingDeliveryTable" maxHeight="150.0" maxWidth="180.0" minHeight="150.0" minWidth="180.0" prefHeight="150.0" prefWidth="180.0" StackPane.alignment="TOP_LEFT">
+               <columns>
+                  <TableColumn fx:id="waitingDeliveryColumn" prefWidth="199.0" text="DELIVERY  - WAITING" />
+               </columns>
+               <StackPane.margin>
+                  <Insets left="400.0" top="100.0" />
+               </StackPane.margin>
+            </TableView>
+            <TableView fx:id="clientsOrderListTable" maxHeight="350.0" maxWidth="300.0" minHeight="350.0" minWidth="300.0" prefHeight="350.0" prefWidth="300.0" StackPane.alignment="TOP_LEFT">
+               <columns>
+                  <TableColumn fx:id="clientsOrderListColumn" prefWidth="109.0" text="CLIENTS ORDERS" />
+                  <TableColumn fx:id="clientsOrderPriceColumn" prefWidth="101.0" text="Price" />
+                  <TableColumn fx:id="clientsOrderDateColumn" prefWidth="89.0" text="Date" />
+               </columns>
+               <StackPane.margin>
+                  <Insets left="50.0" top="100.0" />
+               </StackPane.margin>
+            </TableView>
+            <TableView fx:id="goingDeliveryTable" maxHeight="150.0" maxWidth="180.0" minHeight="150.0" minWidth="180.0" prefHeight="150.0" prefWidth="180.0" StackPane.alignment="TOP_LEFT">
+               <columns>
+                  <TableColumn fx:id="goingDeliveryColumn" prefWidth="199.0" text="DELIVERY -  INCOMING" />
+               </columns>
+               <StackPane.margin>
+                  <Insets left="400.0" top="300.0" />
+               </StackPane.margin>
+            </TableView>
          </children>
       </StackPane>
    </children>

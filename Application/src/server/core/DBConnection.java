@@ -5,7 +5,7 @@ import java.util.ArrayList;
 
 public class DBConnection {
     private Connection connection;
-    private String url = "jdbc:mysql://localhost:3306/supershopmanager";
+    private String url = "jdbc:mysql://localhost:3306/supershop";
     private String username = "root";
     private String password = "1234";
 
@@ -34,7 +34,6 @@ public class DBConnection {
     }*/
 
     public void executeSQLStatement() {
-        try {
             /* execute procedure with parameters
             CallableStatement cs = connection.prepareCall("{call registerClient(?,?,?,?,?,?,?)}");
             cs.setString(1, "qwerty");
@@ -56,15 +55,6 @@ public class DBConnection {
             int res = cs.getInt(1);
             System.out.println(">> Function result = " + res);
             */
-
-            CallableStatement cs = connection.prepareCall("{call paySalary()}");
-            cs.execute();
-            System.out.println("TEST::Procedure executed correctly");
-
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-
     }
 
     public ArrayList<String> getRecords(String query) {
@@ -106,6 +96,17 @@ public class DBConnection {
             }
         }
         return id;
+    }
+
+    public void executeStm(String query) {
+        PreparedStatement  stmt = null;
+        try {
+            System.out.println("Executing statement...");
+            stmt = connection.prepareStatement(query);
+            stmt.executeUpdate(query);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 
     public void disconnect() {

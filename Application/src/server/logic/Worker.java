@@ -2,7 +2,9 @@ package server.logic;
 
 import server.core.Server;
 
+import javax.management.Notification;
 import javax.management.NotificationBroadcasterSupport;
+import java.util.ArrayList;
 
 public class Worker extends NotificationBroadcasterSupport implements WorkerMBean{
     private Server server;
@@ -15,5 +17,16 @@ public class Worker extends NotificationBroadcasterSupport implements WorkerMBea
         this.login = login;
         this.pass = pass;
         this.server = server;
+    }
+
+    public void getOrder() {
+        String query = "SELECT Name, Surname FROM clients";
+        ArrayList<String> data = server.dbConnection.getRecords(query);
+        String dataStr = "";
+        for (String s:data) {
+            dataStr = dataStr.concat(s);
+        }
+        sendNotification(new Notification(String.valueOf(pid), this, 001100110011,
+                "C#" + dataStr));
     }
 }

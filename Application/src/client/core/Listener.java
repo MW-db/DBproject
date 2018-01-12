@@ -74,6 +74,10 @@ public class Listener implements NotificationListener {
             String  opSig[] = {};
             controller.client.connection.invokeMethod(controller.client.ownerObj, "getWorkerList", opParams, opSig);
             controller.client.connection.invokeMethod(controller.client.ownerObj, "getClientList", opParams, opSig);
+        } else if (controller.user.equals("Worker")) {
+            Object  opParams[] = {};
+            String  opSig[] = {};
+            controller.client.connection.invokeMethod(controller.client.workerObj, "getOrder", opParams, opSig);
         }
     }
 }

@@ -13,7 +13,7 @@ public class DBBackup {
             File jarFile = new File(codeSource.getLocation().toURI().getPath());
             String jarDir = jarFile.getParentFile().getPath();
 
-            String dbName = "supershopmanager";
+            String dbName = "supershop";
             String dbUser = "root";
             String dbPass = "1234";
 
@@ -47,7 +47,7 @@ public class DBBackup {
             File jarFile = new File(codeSource.getLocation().toURI().getPath());
             String jarDir = jarFile.getParentFile().getPath();
 
-            String dbName = "supershopmanager";
+            String dbName = "supershop";
             String dbUser = "root";
             String dbPass = "1234";
 
