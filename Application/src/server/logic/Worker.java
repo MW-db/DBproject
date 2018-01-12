@@ -20,13 +20,25 @@ public class Worker extends NotificationBroadcasterSupport implements WorkerMBea
     }
 
     public void getOrder() {
-        String query = "SELECT Name, Surname FROM clients";
+        /*String query = "SELECT Name, Surname FROM clients";
         ArrayList<String> data = server.dbConnection.getRecords(query);
         String dataStr = "";
         for (String s:data) {
             dataStr = dataStr.concat(s);
         }
         sendNotification(new Notification(String.valueOf(pid), this, 001100110011,
-                "C#" + dataStr));
+                "C#" + dataStr));*/
+    }
+
+    public void getBalance() {
+        String data = server.dbConnection.getMoney();
+        sendNotification(new Notification(String.valueOf(pid), this, 001100110011,
+                "B#" + data));
+    }
+
+    public void getCapacity() {
+        String data = server.dbConnection.getStorage();
+        sendNotification(new Notification(String.valueOf(pid), this, 001100110011,
+                "S#" + data));
     }
 }

@@ -5,5 +5,5 @@ public interface FactoryMBean {
 
     void createUser(int pid, String type, String login, String pass);
 
-    void testConnection(int pid);
+    void sendNextDayNotif(String date);
 }

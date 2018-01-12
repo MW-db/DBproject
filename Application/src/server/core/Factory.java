@@ -74,9 +74,8 @@ public class Factory extends NotificationBroadcasterSupport implements FactoryMB
     }
 
     @Override
-    public void testConnection(int pid) {
-        System.out.println("Client with pid: " + pid + " invoking method");
-        sendNotification(new Notification(String.valueOf(pid), this, 110011110,
-                "T, connection and notification test" ));
+    public void sendNextDayNotif(String date) {
+        sendNotification(new Notification(date, this, 110011110,
+                "D," + date ));
     }
 }

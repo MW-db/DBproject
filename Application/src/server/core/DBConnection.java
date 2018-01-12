@@ -57,6 +57,25 @@ public class DBConnection {
             */
     }
 
+    public void registerWorker(String a, String b, String c, String d, String e, String f, String g, String h) {
+        CallableStatement cs = null;
+        try {
+            cs = connection.prepareCall("{call registerWorker(?,?,?,?,?,?,?,?)}");
+            cs.setString(1, a);
+            cs.setString(2, b);
+            cs.setString(3, c);
+            cs.setString(4, d);
+            cs.setString(5, e);
+            cs.setInt(6, 50);
+            cs.setString(7, g);
+            cs.setString(8, h);
+            cs.execute();
+        } catch (SQLException e1) {
+            e1.printStackTrace();
+        }
+
+    }
+
     public ArrayList<String> getRecords(String query) {
         ArrayList<String> data = new ArrayList<>();
         Statement stmt;
@@ -101,12 +120,102 @@ public class DBConnection {
     public void executeStm(String query) {
         PreparedStatement  stmt = null;
         try {
-            System.out.println("Executing statement...");
             stmt = connection.prepareStatement(query);
             stmt.executeUpdate(query);
         } catch (SQLException e) {
             e.printStackTrace();
         }
+    }
+
+    public String executeStmStr(String query) {
+        String date = "";
+        try {
+            Statement st = connection.createStatement();
+            ResultSet rs = null;
+            rs = st.executeQuery(query);
+            while (rs.next())
+            {
+                date = String.valueOf(rs.getDate("CurrentDate"));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return date;
+    }
+
+    public String getMoney() {
+        String data = "";
+        int res;
+        Statement stmt;
+        try {
+            CallableStatement cs = connection.prepareCall("{? = call calculateIncome()}");
+            cs.registerOutParameter(1, java.sql.Types.INTEGER);
+            cs.execute();
+
+            res = cs.getInt(1);
+            data = data.concat("," + String.valueOf(res));
+
+            CallableStatement cs1 = connection.prepareCall("{? = call calculateExpenses()}");
+            cs1.registerOutParameter(1, java.sql.Types.INTEGER);
+            cs1.execute();
+
+            res = cs1.getInt(1);
+            data = data.concat("," + String.valueOf(res));
+
+            CallableStatement cs2 = connection.prepareCall("{? = call calculateBalance()}");
+            cs2.registerOutParameter(1, java.sql.Types.INTEGER);
+            cs2.execute();
+
+            res = cs2.getInt(1);
+            data = data.concat("," + String.valueOf(res));
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return data;
+    }
+
+    public String getStorage() {
+        String data = "";
+        int res;
+        String food = "";
+        String drink = "";
+        String other = "";
+        try {
+            CallableStatement cs = connection.prepareCall("{? = call calculateFoodStorage()}");
+            cs.registerOutParameter(1, java.sql.Types.INTEGER);
+            cs.execute();
+
+            Statement st = connection.createStatement();
+            ResultSet rs = st.executeQuery("SELECT * FROM Storage");
+            while (rs.next())
+            {
+                food = String.valueOf(rs.getInt("Food_capacity"));
+                drink = String.valueOf(rs.getInt("Drinks_capacity"));
+                other = String.valueOf(rs.getInt("Other_capacity"));
+            }
+
+            res = cs.getInt(1);
+            data = data.concat("," + String.valueOf(res) + " / " + food);
+
+            CallableStatement cs1 = connection.prepareCall("{? = call calculateDrinkStorage()}");
+            cs1.registerOutParameter(1, java.sql.Types.INTEGER);
+            cs1.execute();
+
+            res = cs1.getInt(1);
+            data = data.concat("," + String.valueOf(res) + " / " + drink);
+
+            CallableStatement cs2 = connection.prepareCall("{? = call calculateOtherStorage()}");
+            cs2.registerOutParameter(1, java.sql.Types.INTEGER);
+            cs2.execute();
+
+            res = cs2.getInt(1);
+            data = data.concat("," + String.valueOf(res) + " / " + other);
+
+            st.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return data;
     }
 
     public void disconnect() {

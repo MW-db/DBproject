@@ -38,19 +38,19 @@ public class GUIController {
     @FXML
     private StackPane ownerPage;
     @FXML
-    private Label ownerDateLabel;
+    public Label ownerDateLabel;
     @FXML
-    private Label incomeLabel;
+    public Label incomeLabel;
     @FXML
-    private Label expenseLabel;
+    public Label expenseLabel;
     @FXML
-    private Label balanceLabel;
+    public Label balanceLabel;
     @FXML
-    private Label otherStatusLabel;
+    public Label otherStatusLabel;
     @FXML
-    private Label drinkStatusLabel;
+    public Label drinkStatusLabel;
     @FXML
-    private Label foodStatusLabel;
+    public Label foodStatusLabel;
     @FXML
     private Button removeClientButton;
     @FXML
@@ -107,19 +107,19 @@ public class GUIController {
     @FXML
     private StackPane workerPage;
     @FXML
-    private Label workerDateLabel;
+    public Label workerDateLabel;
     @FXML
-    private Label workerIncomeLabel;
+    public Label workerIncomeLabel;
     @FXML
-    private Label workerExpensesLabel;
+    public Label workerExpensesLabel;
     @FXML
-    private Label workerBalanceLabel;
+    public Label workerBalanceLabel;
     @FXML
-    private Label workerFoodStatusLabel;
+    public Label workerFoodStatusLabel;
     @FXML
-    private Label workerDrinkStatusLabel;
+    public Label workerDrinkStatusLabel;
     @FXML
-    private Label workerOtherStatusLabel;
+    public Label workerOtherStatusLabel;
     @FXML
     private Button workerExitButton;
     @FXML
@@ -154,7 +154,7 @@ public class GUIController {
     @FXML
     private StackPane clientPage;
     @FXML
-    private Label clientDateLabel;
+    public Label clientDateLabel;
     @FXML
     private Label summaryLabel;
     @FXML
@@ -482,9 +482,12 @@ public class GUIController {
     //========= LOGIN ACTIONS =============
 
     public void loginOnClick(ActionEvent event) {
-        Object  opParams[] = {client.pid, user, loginTextField.getText(), passwordTextField.getText()};
-        String  opSig[] = {int.class.getName(), String.class.getName(), String.class.getName(), String.class.getName()};
-        client.connection.invokeMethod(client.factory, "createUser", opParams, opSig);
+        String password = passwordTextField.getText();
+        if (!password.contains("@")) {
+            Object  opParams[] = {client.pid, user, loginTextField.getText(), password};
+            String  opSig[] = {int.class.getName(), String.class.getName(), String.class.getName(), String.class.getName()};
+            client.connection.invokeMethod(client.factory, "createUser", opParams, opSig);
+        }
     }
 
     public void changeViewAfterLogin() {
@@ -589,7 +592,9 @@ public class GUIController {
     }
 
     public void nextDayOnClick(ActionEvent event) {
-
+        Object  opParams[] = {};
+        String  opSig[] = {};
+        client.connection.invokeMethod(client.ownerObj, "nextDay", opParams, opSig);
     }
 
     public void fillWorkerTable() {
@@ -775,6 +780,9 @@ public class GUIController {
     //========= REGISTRY WORKER ACTIONS =============
 
     public void registryWorkerRegistryOnClick(ActionEvent event) {
+        Object  opParams[] = {registryWorkerPassTextField.getText(), registryWorkerNameTextField.getText(), registryWorkerSurnameTextField.getText(), registryWorkerPeselTextField.getText(), registryWorkerPhoneTextField.getText(), registryWorkerSalaryTextField.getText(), "2018-01-02", "2018-01-02"};
+        String  opSig[] = {String.class.getName(), String.class.getName(), String.class.getName(), String.class.getName(), String.class.getName(), String.class.getName(), String.class.getName(), String.class.getName()};
+        client.connection.invokeMethod(client.ownerObj, "addWorker", opParams, opSig);
         regWorkerBackToOwnerPage();
     }
 

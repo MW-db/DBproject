@@ -30,12 +30,69 @@ public class Listener implements NotificationListener {
                     controller.workersTable.setItems(controller.workers);
                 });
                 break;
+            case('D')://nextDay
+                String date = notification.getMessage().substring(2);
+                Object  opParams[] = {};
+                String  opSig[] = {};
+                if (controller.user.equals("Owner")) {
+                    controller.run(() -> {
+                        controller.ownerDateLabel.setText(date);
+                    });
+                    controller.client.connection.invokeMethod(controller.client.ownerObj, "getWorkerList", opParams, opSig);
+                    controller.client.connection.invokeMethod(controller.client.ownerObj, "getClientList", opParams, opSig);
+                    controller.client.connection.invokeMethod(controller.client.ownerObj, "getBalance", opParams, opSig);
+                    controller.client.connection.invokeMethod(controller.client.ownerObj, "getCapacity", opParams, opSig);
+                } else if (controller.user.equals("Worker")) {
+                    controller.run(() -> {
+                        controller.workerDateLabel.setText(date);
+                    });
+                    controller.client.connection.invokeMethod(controller.client.workerObj, "getOrder", opParams, opSig);
+                    controller.client.connection.invokeMethod(controller.client.workerObj, "getBalance", opParams, opSig);
+                    controller.client.connection.invokeMethod(controller.client.workerObj, "getCapacity", opParams, opSig);
+                } else if (controller.user.equals("Client")) {
+                    controller.run(() -> {
+                        controller.clientDateLabel.setText(date);
+                    });
+                }
+                break;
             case('C')://clients list
                 String[] listC = notification.getMessage().substring(3).split(",");
                 controller.run(() -> {
                     controller.clients.setAll(listC);
                     controller.clientsTable.setItems(controller.clients);
                 });
+                break;
+            case('B')://balance list
+                String[] listB = notification.getMessage().substring(3).split(",");
+                if (controller.user.equals("Owner")) {
+                    controller.run(() -> {
+                        controller.incomeLabel.setText(listB[0]);
+                        controller.expenseLabel.setText(listB[1]);
+                        controller.balanceLabel.setText(listB[2]);
+                    });
+                } else if (controller.user.equals("Worker")) {
+                    controller.run(() -> {
+                        controller.workerIncomeLabel.setText(listB[0]);
+                        controller.workerExpensesLabel.setText(listB[1]);
+                        controller.workerBalanceLabel.setText(listB[2]);
+                    });
+                }
+                break;
+            case('S')://storage list
+                String[] listS = notification.getMessage().substring(3).split(",");
+                if (controller.user.equals("Owner")) {
+                    controller.run(() -> {
+                        controller.foodStatusLabel.setText(listS[0]);
+                        controller.drinkStatusLabel.setText(listS[1]);
+                        controller.otherStatusLabel.setText(listS[2]);
+                    });
+                } else if (controller.user.equals("Worker")) {
+                    controller.run(() -> {
+                        controller.workerFoodStatusLabel.setText(listS[0]);
+                        controller.workerDrinkStatusLabel.setText(listS[1]);
+                        controller.workerOtherStatusLabel.setText(listS[2]);
+                    });
+                }
                 break;
             default:
         }
@@ -74,10 +131,14 @@ public class Listener implements NotificationListener {
             String  opSig[] = {};
             controller.client.connection.invokeMethod(controller.client.ownerObj, "getWorkerList", opParams, opSig);
             controller.client.connection.invokeMethod(controller.client.ownerObj, "getClientList", opParams, opSig);
+            controller.client.connection.invokeMethod(controller.client.ownerObj, "getBalance", opParams, opSig);
+            controller.client.connection.invokeMethod(controller.client.ownerObj, "getCapacity", opParams, opSig);
         } else if (controller.user.equals("Worker")) {
             Object  opParams[] = {};
             String  opSig[] = {};
             controller.client.connection.invokeMethod(controller.client.workerObj, "getOrder", opParams, opSig);
+            controller.client.connection.invokeMethod(controller.client.workerObj, "getBalance", opParams, opSig);
+            controller.client.connection.invokeMethod(controller.client.workerObj, "getCapacity", opParams, opSig);
         }
     }
 }

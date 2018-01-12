@@ -1,7 +1,7 @@
 CREATE PROCEDURE registerWorker(IN pass VARCHAR(40), IN firstName VARCHAR(40),
                                 IN surName VARCHAR(40), IN pesel VARCHAR(11),
-                                IN phone VARCHAR(9), IN salary INT, IN startContract DATETIME,
-                                IN endContract DATETIME)
+                                IN phone VARCHAR(9), IN salary INT, IN startContract DATE,
+                                IN endContract DATE)
   BEGIN
     IF pesel NOT LIKE("___________") THEN
       SIGNAL SQLSTATE '01000';

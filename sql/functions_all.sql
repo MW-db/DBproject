@@ -1,15 +1,15 @@
 ##Calculate income function
-CREATE FUNCTION calculateIncome() RETURNS FLOAT
+CREATE FUNCTION calculateIncome() RETURNS INT
   BEGIN
     DECLARE done INT DEFAULT FALSE;
-    DECLARE total FLOAT;
-    DECLARE actual FLOAT;
+    DECLARE total INT;
+    DECLARE actual INT;
 
     DECLARE curs CURSOR FOR (SELECT Income FROM Balance);
 
     DECLARE CONTINUE HANDLER FOR NOT FOUND SET done = TRUE;
 
-    SET total = 0.0;
+    SET total = 0;
 
     OPEN curs;
 
@@ -30,17 +30,17 @@ CREATE FUNCTION calculateIncome() RETURNS FLOAT
   END;
   
   ##Calculate expenses function
-  CREATE FUNCTION calculateExpenses() RETURNS FLOAT
+  CREATE FUNCTION calculateExpenses() RETURNS INT
   BEGIN
     DECLARE done INT DEFAULT FALSE;
-    DECLARE total FLOAT;
-    DECLARE actual FLOAT;
+    DECLARE total INT;
+    DECLARE actual INT;
 
     DECLARE curs CURSOR FOR (SELECT Expense FROM Balance);
 
     DECLARE CONTINUE HANDLER FOR NOT FOUND SET done = TRUE;
 
-    SET total = 0.0;
+    SET total = 0;
 
     OPEN curs;
 
@@ -62,17 +62,17 @@ CREATE FUNCTION calculateIncome() RETURNS FLOAT
   
   
   ## calculate Balance function
-  CREATE FUNCTION calculateBalance() RETURNS FLOAT
+  CREATE FUNCTION calculateBalance() RETURNS INT
   BEGIN
     DECLARE done INT DEFAULT FALSE;
-    DECLARE total FLOAT;
-    DECLARE actual FLOAT;
+    DECLARE total INT;
+    DECLARE actual INT;
 
     DECLARE curs CURSOR FOR (SELECT Balance FROM Balance);
 
     DECLARE CONTINUE HANDLER FOR NOT FOUND SET done = TRUE;
 
-    SET total = 0.0;
+    SET total = 0;
 
     OPEN curs;
 
