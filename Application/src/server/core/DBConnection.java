@@ -1,6 +1,7 @@
 package server.core;
 
 import java.sql.*;
+import java.util.ArrayList;
 
 public class DBConnection {
     private Connection connection;
@@ -66,14 +67,31 @@ public class DBConnection {
 
     }
 
-    public int executeStm(String query) {
+    public ArrayList<String> getRecords(String query) {
+        ArrayList<String> data = new ArrayList<>();
+        Statement stmt;
+        try {
+            stmt = connection.createStatement();
+            ResultSet rs = stmt.executeQuery(query);
+            while (rs.next()) {
+                String s = "";
+                s = s.concat("," + rs.getString("Name") + " " + rs.getString("Surname"));
+                data.add(s);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return data;
+    }
+
+    public int executeStmInt(String query, String column) {
         Statement stmt = null;
         int id = 0;
         try {
             stmt = connection.createStatement();
             ResultSet rs = stmt.executeQuery(query);
             while (rs.next()) {
-                id = rs.getInt("WorkerID");
+                id = rs.getInt(column);
             }
 
         } catch (SQLException e ) {

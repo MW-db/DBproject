@@ -5,7 +5,6 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
-
 import javax.management.NotificationFilterSupport;
 import javax.management.ObjectName;
 import java.lang.management.ManagementFactory;
@@ -51,6 +50,43 @@ public class Client extends Application {
         primaryStage.setScene(scene);
         primaryStage.setTitle("Super Shop Manager");
         primaryStage.show();
+    }
+
+    public void setNewNotificationFilter() {
+        try {
+            connection.mbsc.removeNotificationListener(factory, clientListener, myFilter, null);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        if (ownerObj != null) {
+            try {
+                myFilter.enableType(String.valueOf(ownerObj));
+                connection.mbsc.addNotificationListener(ownerObj, clientListener, myFilter, null);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        } else if (workerObj != null) {
+            try {
+                myFilter.enableType(String.valueOf(workerObj));
+                connection.mbsc.addNotificationListener(workerObj, clientListener, myFilter, null);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        } else if (clientObj != null) {
+            try {
+                myFilter.enableType(String.valueOf(clientObj));
+                connection.mbsc.addNotificationListener(clientObj, clientListener, myFilter, null);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+
+        try {
+            connection.mbsc.addNotificationListener(factory, clientListener, myFilter, null);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     @Override

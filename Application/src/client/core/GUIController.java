@@ -64,6 +64,8 @@ public class GUIController {
     @FXML
     private Button dumpDBButton;
     @FXML
+    private Button restoreDBButton;
+    @FXML
     private Button createSalesButton;
     @FXML
     private Button createProductButton;
@@ -523,7 +525,15 @@ public class GUIController {
     }
 
     public void dumpDbOnClick(ActionEvent event) {
+        Object  opParams[] = {};
+        String  opSig[] = {};
+        client.connection.invokeMethod(client.ownerObj, "backupDB", opParams, opSig);
+    }
 
+    public void restoreDBOnClick(ActionEvent event) {
+        Object  opParams[] = {};
+        String  opSig[] = {};
+        client.connection.invokeMethod(client.ownerObj, "restoreDB", opParams, opSig);
     }
 
     public void createSalesOnClick(ActionEvent event) {
@@ -567,6 +577,10 @@ public class GUIController {
     }
 
     public void nextDayOnClick(ActionEvent event) {
+
+    }
+
+    public void fillWorkerTable() {
 
     }
 

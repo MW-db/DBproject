@@ -23,6 +23,10 @@ public class Listener implements NotificationListener {
                     controller.changeViewAfterLogin();
                 }
                 break;
+            case('W')://New user
+                System.out.println("Received notification: " + notification.getMessage().substring(2));
+
+                break;
             default:
         }
     }
@@ -30,7 +34,8 @@ public class Listener implements NotificationListener {
     private void createUser() {
         if (controller.user.equals("Owner")) {
             try {
-                controller.client.ownerObj = new ObjectName(controller.client.connection.domain+String.valueOf(controller.client.pid)
+                String pid = String.valueOf(controller.client.pid);
+                controller.client.ownerObj = new ObjectName(controller.client.connection.domain+pid
                         +":type=server.logic.Owner,name=Owner");
             } catch (MalformedObjectNameException e) {
                 e.printStackTrace();
@@ -51,6 +56,13 @@ public class Listener implements NotificationListener {
             } catch (MalformedObjectNameException e) {
                 e.printStackTrace();
             }
+        }
+        controller.client.setNewNotificationFilter();
+
+        if (controller.user.equals("Owner")) {
+            Object  opParams[] = {};
+            String  opSig[] = {};
+            controller.client.connection.invokeMethod(controller.client.ownerObj, "getWorkerList", opParams, opSig);
         }
     }
 }

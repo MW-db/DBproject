@@ -166,7 +166,7 @@
                   <Font name="System Bold Italic" size="13.0" />
                </font>
             </Label>
-            <Button fx:id="dumpDBButton" mnemonicParsing="false" onAction="#dumpDbOnClick" text="Create DB Dump" StackPane.alignment="TOP_CENTER">
+            <Button fx:id="dumpDBButton" mnemonicParsing="false" onAction="#dumpDbOnClick" text="Backup DB" StackPane.alignment="TOP_CENTER">
                <StackPane.margin>
                   <Insets left="200.0" top="500.0" />
                </StackPane.margin>
@@ -282,6 +282,11 @@
             <Button fx:id="createProductButton" mnemonicParsing="false" onAction="#createProductonClick" text="Create product" StackPane.alignment="TOP_CENTER">
                <StackPane.margin>
                   <Insets left="200.0" top="300.0" />
+               </StackPane.margin>
+            </Button>
+            <Button fx:id="restoreDBButton" mnemonicParsing="false" onAction="#restoreDBOnClick" text="Restore DB" StackPane.alignment="TOP_CENTER">
+               <StackPane.margin>
+                  <Insets left="200.0" top="540.0" />
                </StackPane.margin>
             </Button>
          </children></StackPane>

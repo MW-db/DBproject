@@ -41,7 +41,7 @@ public class Factory extends NotificationBroadcasterSupport implements FactoryMB
 
             if (server.owner == null) {
                 if (login.equals("admin") && pass.equals("11Admin12")) {
-                    server.owner = new Owner(pid, login, pass);
+                    server.owner = new Owner(pid, login, pass, server);
                     server.connection.createMBeanMainObject("server.logic.Owner", "Owner",
                             String.valueOf(pid), server.owner);
                     sendNotification(new Notification(String.valueOf(pid), this, 001100110011,
@@ -51,8 +51,8 @@ public class Factory extends NotificationBroadcasterSupport implements FactoryMB
 
         } else if (type.equals("Worker")) {
             String query = "SELECT WorkerID FROM workers WHERE Login = \"" + login + "\" AND Password = \"" + pass + "\"";
-            if (server.dbConnection.executeStm(query) != 0) {
-                Worker worker = new Worker(pid, login, pass);
+            if (server.dbConnection.executeStmInt(query, "WorkerID") != 0) {
+                Worker worker = new Worker(pid, login, pass, server);
                 server.workerList.add(worker);
                 server.connection.createMBeanMainObject("server.logic.Worker", "Worker" +
                         pid, String.valueOf(pid), worker);
@@ -62,8 +62,8 @@ public class Factory extends NotificationBroadcasterSupport implements FactoryMB
 
         }  else if (type.equals("Client")) {
             String query = "SELECT ClientID FROM clients WHERE Login = \"" + login + "\" AND Password = \"" + pass + "\"";
-            if (server.dbConnection.executeStm(query) != 0) {
-                Client client = new Client(pid, login, pass);
+            if (server.dbConnection.executeStmInt(query, "ClientID") != 0) {
+                Client client = new Client(pid, login, pass, server);
                 server.clientList.add(client);
                 server.connection.createMBeanMainObject("server.logic.Client", "Client" +
                         pid, String.valueOf(pid), client);
