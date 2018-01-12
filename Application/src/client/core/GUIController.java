@@ -637,7 +637,9 @@ public class GUIController {
     }
 
     public void clientRefreshOnClick(ActionEvent event) {
-
+        Object opParams[] = {};
+        String opSig[] = {};
+        client.connection.invokeMethod(client.clientObj, "getProductsList", opParams, opSig);
     }
 
     public void payOnClick(ActionEvent event) {

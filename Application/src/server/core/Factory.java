@@ -50,7 +50,7 @@ public class Factory extends NotificationBroadcasterSupport implements FactoryMB
             }
 
         } else if (type.equals("Worker")) {
-            String query = "SELECT WorkerID FROM workers WHERE Login = \"" + login + "\" AND Password = \"" + pass + "\"";
+            String query = "SELECT WorkerID FROM Workers WHERE Login = \"" + login + "\" AND Password = \"" + pass + "\"";
             if (server.dbConnection.executeStmInt(query, "WorkerID") != 0) {
                 Worker worker = new Worker(pid, login, pass, server);
                 server.workerList.add(worker);
@@ -61,7 +61,7 @@ public class Factory extends NotificationBroadcasterSupport implements FactoryMB
             }
 
         }  else if (type.equals("Client")) {
-            String query = "SELECT ClientID FROM clients WHERE Login = \"" + login + "\" AND Password = \"" + pass + "\"";
+            String query = "SELECT ClientID FROM Clients WHERE Login = \"" + login + "\" AND Password = \"" + pass + "\"";
             if (server.dbConnection.executeStmInt(query, "ClientID") != 0) {
                 Client client = new Client(pid, login, pass, server);
                 server.clientList.add(client);

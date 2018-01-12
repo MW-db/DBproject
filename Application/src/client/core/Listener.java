@@ -94,6 +94,11 @@ public class Listener implements NotificationListener {
                     });
                 }
                 break;
+            case('P'):
+                String[] listP = notification.getMessage().substring(3).split(",");
+                controller.run(() -> {
+                    controller.productList.addAll(listP);
+                });
             default:
         }
     }
