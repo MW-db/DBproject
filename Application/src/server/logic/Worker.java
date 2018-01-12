@@ -20,7 +20,7 @@ public class Worker extends NotificationBroadcasterSupport implements WorkerMBea
     }
 
     public void getOrder() {
-        String query = "SELECT Name, Surname FROM clients";
+        String query = "SELECT Name, Surname FROM Clients";
         ArrayList<String> data = server.dbConnection.getRecords(query);
         String dataStr = "";
         for (String s:data) {
