@@ -15,7 +15,6 @@ CREATE TABLE Sales(
   Date_to DATE NOT NULL,
   ProductID INT NOT NULL,
   Price INT NOT NULL ,
-  Quantity INT NOT NULL,
   PRIMARY KEY (SaleID),
   FOREIGN KEY (ProductID) REFERENCES Products(ProductID)
 );
@@ -39,7 +38,8 @@ CREATE TABLE Log(
   Table_name VARCHAR(50),
   Column_name VARCHAR(60),
   Old_value VARCHAR(70),
-  New_value VARCHAR(70)
+  New_value VARCHAR(70),
+  STATUS VARCHAR(70)
 );
 
 CREATE TABLE Delivery(
@@ -126,6 +126,13 @@ CREATE TABLE itemInTransaction(
   productID INT NOT NULL ,
     amount INT,
   FOREIGN KEY (transactionID) REFERENCES Transactions(TransactionID),
-  FOREIGN KEY (productID) REFERENCES Products(ProductID) 
+  FOREIGN KEY (productID) REFERENCES Products(ProductID)
 );
 
+CREATE TABLE tempCart(
+  clientID INT NOT NULL ,
+  productID INT NOT NULL ,
+  pieces INT NOT NULL ,
+  FOREIGN KEY (clientID) REFERENCES Clients(ClientID),
+  FOREIGN KEY (productID) REFERENCES Products(ProductID)
+);
