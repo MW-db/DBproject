@@ -66,6 +66,30 @@ public class DBConnection {
 
     }
 
+    public int executeStm(String query) {
+        Statement stmt = null;
+        int id = 0;
+        try {
+            stmt = connection.createStatement();
+            ResultSet rs = stmt.executeQuery(query);
+            while (rs.next()) {
+                id = rs.getInt("WorkerID");
+            }
+
+        } catch (SQLException e ) {
+            e.printStackTrace();
+        } finally {
+            if (stmt != null) {
+                try {
+                    stmt.close();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+        return id;
+    }
+
     public void disconnect() {
         if (connection != null) {
             try {

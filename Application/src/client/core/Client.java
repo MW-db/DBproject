@@ -15,6 +15,9 @@ public class Client extends Application {
     public String domain = null;
     public ObjectName factory = null;
     public Connection connection;
+    public ObjectName ownerObj;
+    public ObjectName workerObj;
+    public ObjectName clientObj;
     private Listener clientListener;
     private NotificationFilterSupport myFilter;
     private GUIController controller;

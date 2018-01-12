@@ -1,13 +1,24 @@
 package server.core;
 
+import server.logic.Client;
+import server.logic.Owner;
+import server.logic.Worker;
+
 import java.io.IOException;
+import java.util.ArrayList;
 
 public class Server {
     public ConnectionServer connection = null;
     public Factory factory = null;
     public DBConnection dbConnection = null;
+    public Owner owner;
+    public ArrayList<Worker> workerList;
+    public ArrayList<Client> clientList;
 
     public Server() {
+        workerList = new ArrayList<>();
+        clientList = new ArrayList<>();
+
         factory = Factory.getInstance(this);
         connection = factory.createConnection();
 
@@ -18,7 +29,6 @@ public class Server {
         dbConnection = new DBConnection();
         dbConnection.getConnection();
         dbConnection.executeSQLStatement();
-        //dbConnection.disconnect();
 
         System.out.println(">> server is running...");
     }

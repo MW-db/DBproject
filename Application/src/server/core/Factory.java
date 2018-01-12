@@ -1,5 +1,9 @@
 package server.core;
 
+import server.logic.Client;
+import server.logic.Owner;
+import server.logic.Worker;
+
 import javax.management.Notification;
 import javax.management.NotificationBroadcasterSupport;
 
@@ -29,6 +33,44 @@ public class Factory extends NotificationBroadcasterSupport implements FactoryMB
         connection.createMBeanServer();
         connection.createDomain();
         return connection;
+    }
+
+    @Override
+    public void createUser(int pid, String type, String login, String pass) {
+        if (type.equals("Owner")) {
+
+            if (server.owner == null) {
+                if (login.equals("admin") && pass.equals("11Admin12")) {
+                    server.owner = new Owner(pid, login, pass);
+                    server.connection.createMBeanMainObject("server.logic.Owner", "Owner",
+                            String.valueOf(pid), server.owner);
+                    sendNotification(new Notification(String.valueOf(pid), this, 001100110011,
+                            "N#" + pid));
+                }
+            }
+
+        } else if (type.equals("Worker")) {
+            String query = "SELECT WorkerID FROM workers WHERE Login = \"" + login + "\" AND Password = \"" + pass + "\"";
+            if (server.dbConnection.executeStm(query) != 0) {
+                Worker worker = new Worker(pid, login, pass);
+                server.workerList.add(worker);
+                server.connection.createMBeanMainObject("server.logic.Worker", "Worker" +
+                        pid, String.valueOf(pid), worker);
+                sendNotification(new Notification(String.valueOf(pid), this, 001100110011,
+                        "N#" + pid));
+            }
+
+        }  else if (type.equals("Client")) {
+            String query = "SELECT ClientID FROM clients WHERE Login = \"" + login + "\" AND Password = \"" + pass + "\"";
+            if (server.dbConnection.executeStm(query) != 0) {
+                Client client = new Client(pid, login, pass);
+                server.clientList.add(client);
+                server.connection.createMBeanMainObject("server.logic.Client", "Client" +
+                        pid, String.valueOf(pid), client);
+                sendNotification(new Notification(String.valueOf(pid), this, 001100110011,
+                        "N#" + pid));
+            }
+        }
     }
 
     @Override

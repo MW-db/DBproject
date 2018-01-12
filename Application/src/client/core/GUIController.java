@@ -15,8 +15,8 @@ import javafx.scene.layout.StackPane;
 public class GUIController {
 
     private Listener clientListener;
-    private Client client;
-    private String user = "Worker";
+    public Client client;
+    public String user = "Worker";
     private String productType = "Food";
 
     //---------LOGIN PAGE-------------
@@ -474,9 +474,14 @@ public class GUIController {
     //========= LOGIN ACTIONS =============
 
     public void loginOnClick(ActionEvent event) {
+        Object  opParams[] = {client.pid, user, loginTextField.getText(), passwordTextField.getText()};
+        String  opSig[] = {int.class.getName(), String.class.getName(), String.class.getName(), String.class.getName()};
+        client.connection.invokeMethod(client.factory, "createUser", opParams, opSig);
+    }
+
+    public void changeViewAfterLogin() {
         this.loginPage.setVisible(false);
         this.loginPage.setDisable(true);
-
         if (user.equals("Owner")) {
             this.ownerPage.setVisible(true);
             this.ownerPage.setDisable(false);
