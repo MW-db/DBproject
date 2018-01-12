@@ -24,7 +24,7 @@ CREATE PROCEDURE cancelDelivery(IN NdeliveryID INT)
 
         END LOOP;
 
-      SET prevBalance = (SELECT Balance FROM Balance ORDER BY Date DESC LIMIT 1);
+      SET prevBalance = (SELECT Balance FROM Balance ORDER BY BalanceID DESC LIMIT 1);
       IF (done = 1) THEN
         INSERT INTO Balance(Date, Status, DeliveryID, Fee, Expense, Balance)
           VALUES ((SELECT Receiving_date FROM Delivery WHERE NdeliveryID = DeliveryID),
@@ -35,7 +35,7 @@ CREATE PROCEDURE cancelDelivery(IN NdeliveryID INT)
       UPDATE Delivery SET Status="Canceled" WHERE DeliveryID = NdeliveryID;
 
       INSERT INTO LOG(Date, User, Operation, Table_name, Column_name, Old_value, New_value, STATUS) VALUES
-        (NOW(), "Worker", "cancelDelivery", "Delivery", "", NdeliveryID, "", "SUCCESS");
+        ((SELECT currentDate FROM tempDate), "Worker", "cancelDelivery", "Delivery", "", NdeliveryID, "", "SUCCESS");
 
       CLOSE cur;
       END IF ;

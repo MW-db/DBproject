@@ -23,6 +23,6 @@ CREATE PROCEDURE registerWorker(IN pass VARCHAR(40), IN firstName VARCHAR(40),
       VALUES (CONCAT(SUBSTRING(firstName, -5), SUBSTRING(surName, -5), SUBSTRING(pesel, -3)),
               pass, firstName, surName, pesel, phone, salary, startContract, endContract);
     INSERT INTO Log(Date, User, Operation, Table_name, Column_name, Old_value, New_value, STATUS)
-      VALUES (NOW(), "Server", "addWorker", "Workers", "", "", CONCAT(SUBSTRING(firstName, -5), SUBSTRING(surName, -5),
+      VALUES ((SELECT currentDate FROM tempDate), "Server", "addWorker", "Workers", "", "", CONCAT(SUBSTRING(firstName, -5), SUBSTRING(surName, -5),
                                                                       SUBSTRING(pesel, -3)), "SUCCESS");
   END;

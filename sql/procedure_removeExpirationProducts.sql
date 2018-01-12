@@ -10,11 +10,11 @@ CREATE PROCEDURE removeExpirationProducts(IN date DATE)
     DECLARE CONTINUE HANDLER FOR NOT FOUND SET end = 1;
 
     OPEN cur;
-    SET prevBalance = (SELECT Balance FROM Balance ORDER BY Date DESC LIMIT 1);
+    SET prevBalance = (SELECT Balance FROM Balance ORDER BY BalanceID DESC LIMIT 1);
 
       removeExpirationLoop: LOOP
         FETCH cur INTO curAmount, curPrice, curProductID;
-        SET prevBalance = (SELECT Balance FROM Balance ORDER BY Date DESC LIMIT 1);
+        SET prevBalance = (SELECT Balance FROM Balance ORDER BY BalanceID DESC LIMIT 1);
         IF (end = 1) THEN
           LEAVE removeExpirationLoop;
         END IF;

@@ -57,5 +57,7 @@ BEGIN
   INSERT INTO Products(Amount, Price, Name, Expiration_date, Type)
         VALUES (0, 8, "paper", '2018-01-21', "Other");
 
+  INSERT INTO tempDate(currentDate) VALUES(NOW());
+
 END$$
 DELIMITER ;

@@ -6,7 +6,7 @@ CREATE PROCEDURE loginWorker(IN login VARCHAR(30), IN passwrod VARCHAR(40))
 
     SELECT * FROM Workers WHERE Login=login;
     INSERT INTO Log(Date, User, Operation, Table_name, Column_name, Old_value, New_value, STATUS)
-      VALUES (NOW(), login, "LoginClient", "", "", "", "", "SUCCESS");
+      VALUES ((SELECT currentDate FROM tempDate), login, "LoginClient", "", "", "", "", "SUCCESS");
 
   END;
 

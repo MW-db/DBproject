@@ -13,11 +13,11 @@ CREATE PROCEDURE receiveDelivery(IN NdeliveryID INT)
     DECLARE amountOfProduct INT;
     DECLARE prevBalance INT;
 
-    DECLARE end INT DEFAULT 0;
+    DECLARE Nend INT DEFAULT 0;
     DECLARE done INT DEFAULT 0;
     DECLARE err INT DEFAULT 0;
     DECLARE cur CURSOR FOR (SELECT ProductID, Amount FROM itemsInDelivery WHERE DeliveryID = NdeliveryID);
-    DECLARE CONTINUE HANDLER FOR NOT FOUND SET end = 1;
+    DECLARE CONTINUE HANDLER FOR NOT FOUND SET Nend = 1;
 
     SET usageStorage = (SELECT Capacity_usage FROM Storage);
     SET capacityStorage = (SELECT Capacity FROM Storage);
@@ -34,7 +34,7 @@ CREATE PROCEDURE receiveDelivery(IN NdeliveryID INT)
             #LEAVE deliveryLoop;
           END IF;
           FETCH cur INTO productFromCursorID, Namount;
-          IF (end = 1) THEN
+          IF (Nend = 1) THEN
             SET done = 1;
             LEAVE deliveryLoop;
           END IF;
@@ -105,19 +105,19 @@ CREATE PROCEDURE receiveDelivery(IN NdeliveryID INT)
 
         END LOOP;
 
-      SET prevBalance = (SELECT Balance FROM Balance ORDER BY Date DESC LIMIT 1);
+      SET prevBalance = (SELECT Balance FROM Balance ORDER BY BalanceID LIMIT 1);
       IF (done = 1 AND err = 0) THEN
         COMMIT;
-        INSERT INTO Balance(Date, Status, DeliveryID, Fee, Expense, Balance)
+        INSERT INTO Balance(Balance.Date, Status, DeliveryID, Fee, Expense, Balance)
           VALUES ((SELECT Receiving_date FROM Delivery WHERE NdeliveryID = DeliveryID),
-                  "Received", NdeliveryID, 0, payment, prevBalance - payment);
+                  "Received", NdeliveryID, 0, payment, (prevBalance - payment));
 
         UPDATE Delivery
           SET Status="Received"
           WHERE Delivery.DeliveryID=NdeliveryID;
 
         INSERT INTO Log(Date, User, Operation, Table_name, Column_name, Old_value, New_value, STATUS) VALUES
-          (NOW(), "Worker", "ReceiveDelivery", "Delivery", "", "", "", "SUCCESS");
+          ((SELECT currentDate FROM tempDate), "Worker", "ReceiveDelivery", "Delivery", "", "", "", "SUCCESS");
       ELSE
         ROLLBACK;
         INSERT INTO Balance(Date, Status, DeliveryID, Fee, Expense, Balance)
@@ -125,7 +125,7 @@ CREATE PROCEDURE receiveDelivery(IN NdeliveryID INT)
                   "Canceled", NdeliveryID, 100, payment, prevBalance - payment - 100);
 
         INSERT INTO Log(Date, User, Operation, Table_name, Column_name, Old_value, New_value, STATUS) VALUES
-          (NOW(), "Worker", "ReceiveDelivery", "Delivery", "", "", "", "FAILED");
+          ((SELECT currentDate FROM tempDate), "Worker", "ReceiveDelivery", "Delivery", "", "", "", "FAILED");
       END IF;
 
       DELETE FROM itemsInDelivery WHERE DeliveryID = NdeliveryID;

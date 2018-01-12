@@ -10,8 +10,8 @@ CREATE PROCEDURE payTransaction(IN transaID INT)
 
      SET prevBalance = (SELECT Balance FROM Balance ORDER BY Date DESC LIMIT 1);
       SET earn = (SELECT TotalPrice FROM Transactions WHERE TransactionID = transaID);
-      INSERT INTO Balance(Date, Status, TransactionID, Income, Balance) VALUES 
-        (NOW(), "Paid", transaID, earn, (prevBalance + earn));
+      INSERT INTO Balance(Date, Status, TransactionID, Income, Balance) VALUES
+        ((SELECT currentDate FROM tempDate), "Paid", transaID, earn, (prevBalance + earn));
 
       COMMIT ;
     END IF ;

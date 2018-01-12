@@ -14,6 +14,6 @@ CREATE PROCEDURE registerClient(IN login VARCHAR(30), IN pass VARCHAR(40), IN fi
     VALUES (login, pass, firstName, surName, comapnyName, phoneNum, adress, 0.0);
 
     INSERT INTO Log(Date, User, Operation, Table_name, Column_name, Old_value, New_value, STATUS)
-      VALUES (NOW(), "Server", "addClient", "Clients", "", "", login, "SUCCESS");
+      VALUES ((SELECT currentDate FROM tempDate), "Server", "addClient", "Clients", "", "", login, "SUCCESS");
 
   END;

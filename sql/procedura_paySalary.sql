@@ -4,14 +4,13 @@ CREATE PROCEDURE paySalary()
   DECLARE done INT DEFAULT 0;
   DECLARE curDate DATE;
   DECLARE curExpense INT DEFAULT 0;
-  DECLARE sum INT DEFAULT 0;
   DECLARE curWorkerID INT DEFAULT 0;
   DECLARE prevBalance INT;
   DECLARE cur CURSOR FOR (SELECT Date, Expense, WorkerID FROM Balance WHERE Status = "Unpaid" AND WorkerID IS NOT NULL);
   DECLARE CONTINUE HANDLER FOR NOT FOUND SET end = 1;
 
   OPEN cur;
-  SET prevBalance = (SELECT Balance FROM Balance ORDER BY Date DESC LIMIT 1);
+  SET prevBalance = (SELECT Balance FROM Balance ORDER BY BalanceID DESC LIMIT 1);
 
   SET autocommit = 0;
   START TRANSACTION;
@@ -21,20 +20,20 @@ CREATE PROCEDURE paySalary()
         SET done = 1;
         LEAVE payLoop;
       END IF;
-      IF (sum > prevBalance) THEN
+      IF (curExpense > prevBalance) THEN
         ROLLBACK;
         SELECT 'NOT ENOUGH MONEY' AS MESSAGE;
         INSERT INTO LOG(Date, User, Operation, Table_name, Column_name, Old_value, New_value, STATUS) VALUES
-          (NOW(), "Admin", "PaySalary", "Balance", "", "", "", "FAILED");
+          ((SELECT currentDate FROM tempDate), "Admin", "PaySalary", "Balance", "", "", "", "FAILED");
         LEAVE payLoop;
       END IF;
-      SET sum = sum + curExpense;
-      UPDATE Balance SET Status = "Paid", Balance = (prevBalance - sum)
+      SET prevBalance = prevBalance - curExpense;
+      UPDATE Balance SET Status = "Paid", Balance = prevBalance
         WHERE WorkerID = curWorkerID AND Date = curDate AND Status = "Unpaid";
     END LOOP;
   IF (done = 1) THEN
     INSERT INTO LOG(Date, User, Operation, Table_name, Column_name, Old_value, New_value, STATUS) VALUES
-          (NOW(), "Admin", "PaySalary", "Balance", "", "", "", "SUCCESS");
+          ((SELECT currentDate FROM tempDate), "Admin", "PaySalary", "Balance", "", "", "", "SUCCESS");
     COMMIT;
   END IF;
   CLOSE cur;

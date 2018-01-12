@@ -9,7 +9,7 @@ CREATE PROCEDURE setSalaryToPay(IN Ndate DATE)
   DECLARE CONTINUE HANDLER FOR NOT FOUND SET end = 1;
 
   OPEN cur;
-  SET prevBalance = (SELECT Balance FROM Balance ORDER BY Date DESC LIMIT 1);
+  SET prevBalance = (SELECT Balance FROM Balance ORDER BY BalanceID DESC LIMIT 1);
 
     setPayLoop: LOOP
       FETCH cur INTO curSalary, curWorkerID;
@@ -23,7 +23,7 @@ CREATE PROCEDURE setSalaryToPay(IN Ndate DATE)
   CLOSE cur;
 
   INSERT INTO Log(Date, User, Operation, Table_name, Column_name, Old_value, New_value, STATUS) VALUES
-    (NOW(), "Admin", "setSalaryToPay", "Balance", "", "", "", "SUCESS");
+    ((SELECT currentDate FROM tempDate), "Admin", "setSalaryToPay", "Balance", "", "", "", "SUCESS");
 
     COMMIT ;
 
