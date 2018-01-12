@@ -12,7 +12,7 @@ CREATE PROCEDURE loginClient(IN login VARCHAR(30), IN passwrod VARCHAR(40))
     WHERE Login = login;
 
     INSERT INTO LOG(Date, User, Operation, Table_name, Column_name, Old_value, New_value, STATUS)
-    VALUES (NOW(), login, "ClientLogin", "", "", "", "", "Success");
+    VALUES ((SELECT currentDate FROM tempDate), login, "ClientLogin", "", "", "", "", "Success");
 
   END;
 

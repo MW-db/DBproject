@@ -1,25 +1,32 @@
-CREATE PROCEDURE updateDelivery(IN deliveryID INT, IN productID INT, IN amount INT)
+CREATE PROCEDURE updateDelivery(IN deliverID INT, IN NproductID INT, IN amount INT)
   BEGIN
     DECLARE productTypeUsage INT;
     DECLARE productTypeCapacity INT;
     DECLARE productType ENUM("Food", "Drink", "Other");
 
-    SELECT productType = Type
-      FROM products WHERE productID = ProductID;
+    SET productType = (SELECT Type
+      FROM Products WHERE NproductID = ProductID);
 
     IF (productType="Food") THEN
-      SELECT productTypeUsage = Food_capacity FROM storage;
-      SELECT productTypeCapacity = Food_usage FROM storage;
+      SET productTypeUsage = (SELECT Food_usage FROM Storage);
+      SET productTypeCapacity = (SELECT Food_capacity FROM Storage);
     ELSEIF (productType="Drink") THEN
-      SELECT productTypeUsage = Drinks_capacity FROM storage;
-      SELECT productTypeCapacity = Drinks_usage FROM storage;
+      SET productTypeUsage =(SELECT Drinks_usage FROM Storage);
+      SET productTypeCapacity = (SELECT Drinks_capacity FROM Storage);
     ELSEIF (productType="Other") THEN
-      SELECT productTypeUsage = Other_capacity FROM storage;
-      SELECT productTypeCapacity = Others_usage FROM storage;
+      SET productTypeUsage = (SELECT Others_usage FROM Storage);
+      SET productTypeCapacity =(SELECT Other_capacity FROM Storage);
     END IF;
 
-    IF (productTypeCapacity - productTypeUsage >= amount) THEN
-      INSERT INTO itemsindelivery(DeliveryID, ProductID, Amount)
-      VALUES (deliveryID, productID, amount);
+    IF ((productTypeCapacity - productTypeUsage) >= amount) THEN
+      INSERT INTO itemsInDelivery(DeliveryID, ProductID, Amount)
+      VALUES (deliverID, NproductID, amount);
+      INSERT INTO Log(Date, User, Operation, Table_name, Column_name, Old_value, New_value, STATUS) VALUES
+      ((SELECT currentDate FROM tempDate), "Worker", "updateDelivery", "productsInDelivery", "", "", NproductID, "SUCCESS");
+      ELSE
+        INSERT INTO Log(Date, User, Operation, Table_name, Column_name, Old_value, New_value, STATUS) VALUES
+      ((SELECT currentDate FROM tempDate), "Worker", "updateDelivery", "productsInDelivery", "", "", NproductID, "FAILED");
     END IF;
+
+    COMMIT ;
   END;

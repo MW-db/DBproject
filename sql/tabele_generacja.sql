@@ -46,11 +46,11 @@ CREATE TABLE Delivery(
   DeliveryID INT NOT NULL AUTO_INCREMENT,
   Order_date DATE NOT NULL ,
   Receiving_date DATE NOT NULL ,
-  Status ENUM("Created", "Ordered", "Received"),
+  Status ENUM("Created", "Ordered", "Received", "Canceled"),
   PRIMARY KEY (DeliveryID)
 );
 
-CREATE TABLE ItemsInDelivery(
+CREATE TABLE itemsInDelivery(
   DeliveryID INT NOT NULL,
   ProductID INT NOT NULL ,
   Amount INT NOT NULL ,
@@ -107,6 +107,7 @@ CREATE TABLE Workers(
 );
 
 CREATE TABLE Balance(
+  BalanceID INT NOT NULL AUTO_INCREMENT,
   Date DATE NOT NULL ,
   Status ENUM("Paid", "Unpaid", "Received", "Canceled") ,
   DeliveryID INT,
@@ -135,4 +136,8 @@ CREATE TABLE tempCart(
   pieces INT NOT NULL ,
   FOREIGN KEY (clientID) REFERENCES Clients(ClientID),
   FOREIGN KEY (productID) REFERENCES Products(ProductID)
+);
+
+CREATE TABLE tempDate(
+  currentDate DATE NOT NULL
 );

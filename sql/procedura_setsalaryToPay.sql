@@ -1,16 +1,15 @@
-DELIMITER $$
-CREATE PROCEDURE setSalaryToPay(IN date DATE)
-BEGIN
+CREATE PROCEDURE setSalaryToPay(IN Ndate DATE)
+  BEGIN
   DECLARE end INT DEFAULT 0;
   DECLARE done INT DEFAULT 0;
   DECLARE curSalary INT DEFAULT 0;
   DECLARE curWorkerID INT DEFAULT 0;
   DECLARE prevBalance INT;
-  DECLARE cur CURSOR FOR SELECT Salary, WorkerID FROM workers;
+  DECLARE cur CURSOR FOR SELECT Salary, WorkerID FROM Workers;
   DECLARE CONTINUE HANDLER FOR NOT FOUND SET end = 1;
 
   OPEN cur;
-  SELECT prevBalance = Balance FROM balance ORDER BY Date DESC LIMIT 1;
+  SET prevBalance = (SELECT Balance FROM Balance ORDER BY BalanceID DESC LIMIT 1);
 
     setPayLoop: LOOP
       FETCH cur INTO curSalary, curWorkerID;
@@ -18,9 +17,15 @@ BEGIN
         SET done = 1;
         LEAVE setPayLoop;
       END IF;
-      INSERT INTO balance(Date, Status, WorkerID, Fee,  Expense, Balance)
-        VALUES (date, "Unpaid", curWorkerID, 0, curSalary, prevBalance);
+      INSERT INTO Balance(Date, Status, WorkerID, Fee,  Expense, Balance)
+        VALUES (Ndate, "Unpaid", curWorkerID, 0, curSalary, prevBalance);
     END LOOP;
   CLOSE cur;
-END$$
-DELIMITER ;
+
+  INSERT INTO Log(Date, User, Operation, Table_name, Column_name, Old_value, New_value, STATUS) VALUES
+    ((SELECT currentDate FROM tempDate), "Admin", "setSalaryToPay", "Balance", "", "", "", "SUCESS");
+
+    COMMIT ;
+
+END;
+
