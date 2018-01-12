@@ -1,8 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.geometry.Insets?>
+<?import javafx.scene.Cursor?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.CheckBox?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.DialogPane?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.PasswordField?>
 <?import javafx.scene.control.TableColumn?>
@@ -19,22 +23,22 @@
          <children>
             <Button fx:id="loginButton" mnemonicParsing="false" onAction="#loginOnClick" text="LOGIN" StackPane.alignment="TOP_CENTER">
                <StackPane.margin>
-                  <Insets top="350.0" />
+                  <Insets left="300.0" top="450.0" />
                </StackPane.margin>
             </Button>
             <Button fx:id="exitButton" mnemonicParsing="false" onAction="#exitOnClick" text="EXIT" StackPane.alignment="TOP_CENTER">
                <StackPane.margin>
-                  <Insets top="500.0" />
+                  <Insets left="300.0" top="500.0" />
                </StackPane.margin>
             </Button>
             <PasswordField fx:id="passwordTextField" alignment="CENTER" maxWidth="200.0" prefWidth="150.0" promptText="Enter password" StackPane.alignment="CENTER">
                <StackPane.margin>
-                  <Insets />
+                  <Insets left="300.0" top="200.0" />
                </StackPane.margin>
             </PasswordField>
             <TextField fx:id="loginTextField" alignment="CENTER" maxWidth="200.0" promptText="Enter login" StackPane.alignment="CENTER">
                <StackPane.margin>
-                  <Insets bottom="100.0" />
+                  <Insets bottom="100.0" left="300.0" top="150.0" />
                </StackPane.margin>
             </TextField>
             <Label alignment="CENTER" text="WELCOME  IN" StackPane.alignment="TOP_CENTER">
@@ -65,6 +69,27 @@
                      <stops>
                         <Stop color="BLACK" />
                         <Stop color="#72bc5a" offset="1.0" />
+                     </stops>
+                  </RadialGradient>
+               </textFill>
+            </Label>
+            <ComboBox fx:id="userComboBox" prefWidth="150.0" StackPane.alignment="TOP_LEFT">
+               <StackPane.margin>
+                  <Insets left="200.0" top="350.0" />
+               </StackPane.margin>
+            </ComboBox>
+            <Label maxWidth="100.0" minWidth="100.0" prefWidth="100.0" text="Log in as:" StackPane.alignment="TOP_LEFT">
+               <StackPane.margin>
+                  <Insets left="200.0" top="300.0" />
+               </StackPane.margin>
+               <font>
+                  <Font name="System Bold Italic" size="18.0" />
+               </font>
+               <textFill>
+                  <RadialGradient centerX="0.18333333333333335" centerY="0.5" cycleMethod="REFLECT" focusAngle="128.29" focusDistance="-0.34883720930232553" radius="0.11627906976744184">
+                     <stops>
+                        <Stop color="BLACK" />
+                        <Stop color="#ab9f19" offset="1.0" />
                      </stops>
                   </RadialGradient>
                </textFill>
@@ -141,9 +166,9 @@
                   <Font name="System Bold Italic" size="13.0" />
                </font>
             </Label>
-            <Button fx:id="WydzialPodstawowychW11" mnemonicParsing="false" onAction="#manageFinanceOnClick" text="Manage finance" StackPane.alignment="TOP_CENTER">
+            <Button fx:id="dumpDBButton" mnemonicParsing="false" onAction="#dumpDbOnClick" text="Create DB Dump" StackPane.alignment="TOP_CENTER">
                <StackPane.margin>
-                  <Insets left="200.0" top="200.0" />
+                  <Insets left="200.0" top="500.0" />
                </StackPane.margin>
             </Button>
             <Button fx:id="ownerExitButton" mnemonicParsing="false" onAction="#exitOnClick" text="EXIT" textFill="#fc0101" StackPane.alignment="BOTTOM_RIGHT">
@@ -211,7 +236,7 @@
             </Label>
             <TableView fx:id="deliveryWaitingTable" maxHeight="150.0" maxWidth="180.0" minHeight="150.0" minWidth="180.0" prefHeight="150.0" prefWidth="180.0" StackPane.alignment="TOP_LEFT">
                <columns>
-                  <TableColumn fx:id="deliveryWaitingColumn" prefWidth="199.0" text="DELIVERY - WAITING" />
+                  <TableColumn fx:id="deliveryWaitingColumn" prefWidth="178.0" text="DELIVERY - WAITING" />
                </columns>
                <StackPane.margin>
                   <Insets left="240.0" top="80.0" />
@@ -249,6 +274,16 @@
                   <Insets left="240.0" top="340.0" />
                </StackPane.margin>
             </TableView>
+            <Button fx:id="createSalesButton" mnemonicParsing="false" onAction="#createSalesOnClick" text="Create sales" StackPane.alignment="TOP_CENTER">
+               <StackPane.margin>
+                  <Insets left="200.0" top="250.0" />
+               </StackPane.margin>
+            </Button>
+            <Button fx:id="createProductButton" mnemonicParsing="false" onAction="#createProductonClick" text="Create product" StackPane.alignment="TOP_CENTER">
+               <StackPane.margin>
+                  <Insets left="200.0" top="300.0" />
+               </StackPane.margin>
+            </Button>
          </children></StackPane>
       <StackPane fx:id="workerPage" disable="true" prefHeight="150.0" prefWidth="200.0" visible="false">
          <children>
@@ -500,6 +535,350 @@
                   <Insets left="300.0" top="50.0" />
                </StackPane.margin>
             </Label>
+         </children>
+      </StackPane>
+      <StackPane fx:id="createDeliveryPage" disable="true" prefHeight="150.0" prefWidth="200.0" visible="false">
+         <children>
+            <Label alignment="CENTER" text="Create delivery:" StackPane.alignment="TOP_LEFT">
+               <font>
+                  <Font name="System Bold Italic" size="24.0" />
+               </font>
+               <StackPane.margin>
+                  <Insets left="40.0" top="20.0" />
+               </StackPane.margin>
+            </Label>
+            <TableView fx:id="createDeliveryProductList" maxHeight="400.0" maxWidth="250.0" minHeight="400.0" minWidth="250.0" prefHeight="400.0" prefWidth="250.0" StackPane.alignment="TOP_LEFT">
+              <columns>
+                <TableColumn fx:id="createDeliveryProductListName" prefWidth="138.0" text="Name" />
+                <TableColumn fx:id="createDeliveryProductListAmount" prefWidth="54.0" text="Amount" />
+                  <TableColumn fx:id="createDeliveryProductListCapacity" prefWidth="57.0" text="Capacity" />
+              </columns>
+               <StackPane.margin>
+                  <Insets left="40.0" top="100.0" />
+               </StackPane.margin>
+            </TableView>
+            <TableView fx:id="createDeliveryCartList" maxHeight="400.0" maxWidth="250.0" minHeight="400.0" minWidth="250.0" prefHeight="400.0" prefWidth="250.0">
+               <columns>
+                  <TableColumn fx:id="createDeliveryCartListName" prefWidth="138.0" text="Name" />
+                  <TableColumn fx:id="createDeliveryCartListAmount" prefWidth="54.0" text="Amount" />
+                  <TableColumn fx:id="createDeliveryCartListPrice" prefWidth="57.0" text="Price" />
+               </columns>
+            </TableView>
+            <Label fx:id="createDeliverySumLabel" alignment="CENTER" prefWidth="100.0" text="SUM" StackPane.alignment="TOP_RIGHT">
+               <font>
+                  <Font name="System Bold Italic" size="35.0" />
+               </font>
+               <StackPane.margin>
+                  <Insets right="100.0" top="100.0" />
+               </StackPane.margin>
+            </Label>
+            <Button fx:id="createDeliveryAddProductButton" mnemonicParsing="false" onAction="#createDeliveryAddProductOnClick" text="ADD PRODUCT" StackPane.alignment="TOP_RIGHT">
+               <StackPane.margin>
+                  <Insets right="100.0" top="200.0" />
+               </StackPane.margin>
+            </Button>
+            <Button fx:id="createDeliveryOrderButton" mnemonicParsing="false" onAction="#createDeliveryOrderOnClick" text="ORDER" StackPane.alignment="TOP_RIGHT">
+               <StackPane.margin>
+                  <Insets right="123.0" top="400.0" />
+               </StackPane.margin>
+            </Button>
+            <Button fx:id="createDeliveryRemoveProductButton" mnemonicParsing="false" onAction="#createDeliveryRemoveProductOnClick" text="REMOVE PRODUCT" textAlignment="CENTER" StackPane.alignment="TOP_RIGHT">
+               <StackPane.margin>
+                  <Insets right="90.0" top="250.0" />
+               </StackPane.margin>
+            </Button>
+            <Button fx:id="createDeliveryCancelButton" mnemonicParsing="false" onAction="#createDeliveryCancelOnClick" text="CANCEL" StackPane.alignment="TOP_RIGHT">
+               <StackPane.margin>
+                  <Insets right="120.0" top="450.0" />
+               </StackPane.margin>
+            </Button>
+         </children>
+      </StackPane>
+      <StackPane fx:id="manageSalesPage" disable="true" prefHeight="150.0" prefWidth="200.0" visible="false">
+         <children>
+            <Label alignment="CENTER" text="Create sales:" StackPane.alignment="TOP_LEFT">
+               <font>
+                  <Font name="System Bold Italic" size="24.0" />
+               </font>
+               <StackPane.margin>
+                  <Insets left="40.0" top="20.0" />
+               </StackPane.margin>
+            </Label>
+            <TableView fx:id="createSalesTable" maxHeight="400.0" maxWidth="550.0" minHeight="400.0" minWidth="550.0" prefHeight="400.0" prefWidth="550.0" StackPane.alignment="TOP_LEFT">
+               <columns>
+                  <TableColumn fx:id="createSalesNameColumn" prefWidth="135.0" text="Name" />
+                  <TableColumn fx:id="createSalesAmountColumn" prefWidth="51.0" text="Amount" />
+                  <TableColumn fx:id="createSalesStdPriceColumn" prefWidth="96.0" text="Standar price" />
+                  <TableColumn fx:id="createSalesSalesPriceColumn" prefWidth="79.0" text="Sales price" />
+                  <TableColumn fx:id="createSalesDateFromColumn" prefWidth="97.0" text="Date from" />
+                  <TableColumn fx:id="createSalesDateToColumn" prefWidth="91.0" text="Date to" />
+               </columns>
+               <StackPane.margin>
+                  <Insets left="40.0" top="100.0" />
+               </StackPane.margin>
+            </TableView>
+            <Button fx:id="createSalesAddSalesButton" mnemonicParsing="false" onAction="#createSalesAddSalesonClick" text="ADD SALE" StackPane.alignment="TOP_RIGHT">
+               <StackPane.margin>
+                  <Insets right="110.0" top="350.0" />
+               </StackPane.margin>
+            </Button>
+            <Button fx:id="createSalesRemoveSalesButton" mnemonicParsing="false" onAction="#createSalesRemoveSalesOnClick" text="REMOVE SALE" textAlignment="CENTER" StackPane.alignment="TOP_RIGHT">
+               <StackPane.margin>
+                  <Insets right="100.0" top="400.0" />
+               </StackPane.margin>
+            </Button>
+            <Button fx:id="createSalesCancelButton" mnemonicParsing="false" onAction="#createSalesCancelOnClick" text="CANCEL" StackPane.alignment="TOP_RIGHT">
+               <StackPane.margin>
+                  <Insets right="120.0" top="500.0" />
+               </StackPane.margin>
+            </Button>
+            <TextField fx:id="createSalesNewPriceTextField" alignment="CENTER" maxHeight="50.0" maxWidth="200.0" minHeight="50.0" minWidth="200.0" prefHeight="50.0" prefWidth="200.0" promptText="New price" StackPane.alignment="TOP_RIGHT">
+               <StackPane.margin>
+                  <Insets right="50.0" top="80.0" />
+               </StackPane.margin>
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </TextField>
+            <DatePicker fx:id="createSalesDateFromPicker" promptText="Date from" showWeekNumbers="true" StackPane.alignment="TOP_RIGHT">
+               <StackPane.margin>
+                  <Insets right="60.0" top="200.0" />
+               </StackPane.margin>
+            </DatePicker>
+            <DatePicker fx:id="createSalesDateToPicker" promptText="Date to" showWeekNumbers="true" StackPane.alignment="TOP_RIGHT">
+               <StackPane.margin>
+                  <Insets right="60.0" top="250.0" />
+               </StackPane.margin>
+            </DatePicker>
+         </children>
+      </StackPane>
+      <StackPane fx:id="createProductPage" disable="true" prefHeight="150.0" prefWidth="200.0" visible="false">
+         <children>
+            <Label alignment="CENTER" text="Create product:" StackPane.alignment="TOP_LEFT">
+               <font>
+                  <Font name="System Bold Italic" size="24.0" />
+               </font>
+               <StackPane.margin>
+                  <Insets left="40.0" top="20.0" />
+               </StackPane.margin>
+            </Label>
+            <Button fx:id="createProductAddButton" mnemonicParsing="false" onAction="#createProductAddOnClick" text="ADD PRODUCT" StackPane.alignment="TOP_LEFT">
+               <StackPane.margin>
+                  <Insets left="590.0" top="350.0" />
+               </StackPane.margin>
+            </Button>
+            <Button fx:id="createProductCancelButton" mnemonicParsing="false" onAction="#createProductCancelOnClick" text="CANCEL" StackPane.alignment="TOP_LEFT">
+               <StackPane.margin>
+                  <Insets left="610.0" top="450.0" />
+               </StackPane.margin>
+            </Button>
+            <TextField fx:id="createProductPriceTextField" alignment="CENTER" maxHeight="50.0" maxWidth="200.0" minHeight="50.0" minWidth="200.0" prefHeight="50.0" prefWidth="200.0" promptText="Price" StackPane.alignment="TOP_LEFT">
+               <StackPane.margin>
+                  <Insets left="150.0" top="300.0" />
+               </StackPane.margin>
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </TextField>
+            <TextField fx:id="createProductNameTextField" alignment="CENTER" maxHeight="50.0" maxWidth="200.0" minHeight="50.0" minWidth="200.0" prefHeight="50.0" prefWidth="200.0" promptText="Name" StackPane.alignment="TOP_LEFT">
+               <font>
+                  <Font size="18.0" />
+               </font>
+               <StackPane.margin>
+                  <Insets left="150.0" top="200.0" />
+               </StackPane.margin>
+            </TextField>
+            <ComboBox fx:id="productTypeComboBox" prefWidth="150.0" StackPane.alignment="TOP_LEFT">
+               <StackPane.margin>
+                  <Insets left="560.0" top="200.0" />
+               </StackPane.margin>
+            </ComboBox>
+         </children>
+      </StackPane>
+      <StackPane fx:id="registryWorkerPage" disable="true" prefHeight="150.0" prefWidth="200.0" visible="false">
+         <children>
+            <TextField fx:id="registryWorkerSalaryTextField" alignment="CENTER" maxHeight="30.0" maxWidth="200.0" minHeight="30.0" minWidth="200.0" prefHeight="30.0" prefWidth="200.0" promptText="Salary" StackPane.alignment="TOP_LEFT">
+               <font>
+                  <Font size="18.0" />
+               </font>
+               <StackPane.margin>
+                  <Insets left="100.0" top="350.0" />
+               </StackPane.margin>
+            </TextField>
+            <TextField fx:id="registryWorkerPhoneTextField" alignment="CENTER" maxHeight="30.0" maxWidth="200.0" minHeight="30.0" minWidth="200.0" prefHeight="30.0" prefWidth="200.0" promptText="Phone" StackPane.alignment="TOP_LEFT">
+               <font>
+                  <Font size="18.0" />
+               </font>
+               <StackPane.margin>
+                  <Insets left="100.0" top="300.0" />
+               </StackPane.margin>
+            </TextField>
+            <TextField fx:id="registryWorkerPeselTextField" alignment="CENTER" maxHeight="30.0" maxWidth="200.0" minHeight="30.0" minWidth="200.0" prefHeight="30.0" prefWidth="200.0" promptText="Pesel" StackPane.alignment="TOP_LEFT">
+               <font>
+                  <Font size="18.0" />
+               </font>
+               <StackPane.margin>
+                  <Insets left="100.0" top="250.0" />
+               </StackPane.margin>
+            </TextField>
+            <TextField fx:id="registryWorkerSurnameTextField" alignment="CENTER" maxHeight="30.0" maxWidth="200.0" minHeight="30.0" minWidth="200.0" prefHeight="30.0" prefWidth="200.0" promptText="Surname" StackPane.alignment="TOP_LEFT">
+               <font>
+                  <Font size="18.0" />
+               </font>
+               <StackPane.margin>
+                  <Insets left="100.0" top="200.0" />
+               </StackPane.margin>
+            </TextField>
+            <Label alignment="CENTER" text="Registry new worker:" StackPane.alignment="TOP_LEFT">
+               <font>
+                  <Font name="System Bold Italic" size="24.0" />
+               </font>
+               <StackPane.margin>
+                  <Insets left="40.0" top="20.0" />
+               </StackPane.margin>
+            </Label>
+            <Button fx:id="registryWorkerRegistryButton" mnemonicParsing="false" onAction="#registryWorkerRegistryOnClick" text="REGISTRY" StackPane.alignment="TOP_LEFT">
+               <StackPane.margin>
+                  <Insets left="540.0" top="350.0" />
+               </StackPane.margin>
+            </Button>
+            <Button fx:id="registryWorkerCancelButton" mnemonicParsing="false" onAction="#registryWorkerCancelOnClick" text="CANCEL" StackPane.alignment="TOP_LEFT">
+               <StackPane.margin>
+                  <Insets left="540.0" top="400.0" />
+               </StackPane.margin>
+            </Button>
+            <TextField fx:id="registryWorkerPassTextField" alignment="CENTER" maxHeight="30.0" maxWidth="200.0" minHeight="30.0" minWidth="200.0" prefHeight="30.0" prefWidth="200.0" promptText="Pass" StackPane.alignment="TOP_LEFT">
+               <font>
+                  <Font size="18.0" />
+               </font>
+               <StackPane.margin>
+                  <Insets left="100.0" top="100.0" />
+               </StackPane.margin>
+            </TextField>
+            <TextField fx:id="registryWorkerNameTextField" alignment="CENTER" maxHeight="30.0" maxWidth="200.0" minHeight="30.0" minWidth="200.0" prefHeight="30.0" prefWidth="200.0" promptText="First name" StackPane.alignment="TOP_LEFT">
+               <font>
+                  <Font size="18.0" />
+               </font>
+               <StackPane.margin>
+                  <Insets left="100.0" top="150.0" />
+               </StackPane.margin>
+            </TextField>
+            <DatePicker fx:id="registryWorkerDateFromPicker" promptText="Contract from" StackPane.alignment="TOP_LEFT">
+               <StackPane.margin>
+                  <Insets left="500.0" top="150.0" />
+               </StackPane.margin>
+            </DatePicker>
+            <DatePicker fx:id="registryWorkerDateToPicker" promptText="Contract from" StackPane.alignment="TOP_LEFT">
+               <StackPane.margin>
+                  <Insets left="500.0" top="200.0" />
+               </StackPane.margin>
+            </DatePicker>
+         </children>
+      </StackPane>
+      <StackPane fx:id="registryClientPage" disable="true" prefHeight="150.0" prefWidth="200.0" visible="false">
+         <children>
+            <TextField fx:id="registryClientLoginTextField" alignment="CENTER" maxHeight="30.0" maxWidth="200.0" minHeight="30.0" minWidth="200.0" prefHeight="30.0" prefWidth="200.0" promptText="Login" StackPane.alignment="TOP_LEFT">
+               <font>
+                  <Font size="18.0" />
+               </font>
+               <StackPane.margin>
+                  <Insets left="150.0" top="100.0" />
+               </StackPane.margin>
+            </TextField>
+            <TextField fx:id="registryClientphoneTextField" alignment="CENTER" maxHeight="30.0" maxWidth="200.0" minHeight="30.0" minWidth="200.0" prefHeight="30.0" prefWidth="200.0" promptText="Phone" StackPane.alignment="TOP_LEFT">
+               <font>
+                  <Font size="18.0" />
+               </font>
+               <StackPane.margin>
+                  <Insets left="150.0" top="350.0" />
+               </StackPane.margin>
+            </TextField>
+            <TextField fx:id="registryClientCompanyTextField" alignment="CENTER" maxHeight="30.0" maxWidth="200.0" minHeight="30.0" minWidth="200.0" prefHeight="30.0" prefWidth="200.0" promptText="Company" StackPane.alignment="TOP_LEFT">
+               <font>
+                  <Font size="18.0" />
+               </font>
+               <StackPane.margin>
+                  <Insets left="150.0" top="300.0" />
+               </StackPane.margin>
+            </TextField>
+            <TextField fx:id="registryClientSurnameTextField" alignment="CENTER" maxHeight="30.0" maxWidth="200.0" minHeight="30.0" minWidth="200.0" prefHeight="30.0" prefWidth="200.0" promptText="Surname" StackPane.alignment="TOP_LEFT">
+               <font>
+                  <Font size="18.0" />
+               </font>
+               <StackPane.margin>
+                  <Insets left="150.0" top="250.0" />
+               </StackPane.margin>
+            </TextField>
+            <Label alignment="CENTER" text="Registry new client:" StackPane.alignment="TOP_LEFT">
+               <font>
+                  <Font name="System Bold Italic" size="24.0" />
+               </font>
+               <StackPane.margin>
+                  <Insets left="40.0" top="20.0" />
+               </StackPane.margin>
+            </Label>
+            <Button fx:id="registryClientRegistryButton" mnemonicParsing="false" onAction="#registryClientRegistryOnClick" text="REGISTRY" StackPane.alignment="TOP_LEFT">
+               <StackPane.margin>
+                  <Insets left="540.0" top="200.0" />
+               </StackPane.margin>
+            </Button>
+            <Button fx:id="registryClientcancelButton" mnemonicParsing="false" onAction="#registryClientCancelOnClick" text="CANCEL" StackPane.alignment="TOP_LEFT">
+               <StackPane.margin>
+                  <Insets left="540.0" top="300.0" />
+               </StackPane.margin>
+            </Button>
+            <TextField fx:id="registryClientPassTextField" alignment="CENTER" maxHeight="30.0" maxWidth="200.0" minHeight="30.0" minWidth="200.0" prefHeight="30.0" prefWidth="200.0" promptText="Pass" StackPane.alignment="TOP_LEFT">
+               <font>
+                  <Font size="18.0" />
+               </font>
+               <StackPane.margin>
+                  <Insets left="150.0" top="150.0" />
+               </StackPane.margin>
+            </TextField>
+            <TextField fx:id="registryClientNameTextField" alignment="CENTER" maxHeight="30.0" maxWidth="200.0" minHeight="30.0" minWidth="200.0" prefHeight="30.0" prefWidth="200.0" promptText="First name" StackPane.alignment="TOP_LEFT">
+               <font>
+                  <Font size="18.0" />
+               </font>
+               <StackPane.margin>
+                  <Insets left="150.0" top="200.0" />
+               </StackPane.margin>
+            </TextField>
+            <TextField fx:id="registryClientAdressTextField" alignment="CENTER" maxHeight="30.0" maxWidth="200.0" minHeight="30.0" minWidth="200.0" prefHeight="30.0" prefWidth="200.0" promptText="Adress" StackPane.alignment="TOP_LEFT">
+               <font>
+                  <Font size="18.0" />
+               </font>
+               <StackPane.margin>
+                  <Insets left="150.0" top="400.0" />
+               </StackPane.margin>
+            </TextField>
+         </children>
+      </StackPane>
+      <StackPane fx:id="addBalancePage" disable="true" prefHeight="150.0" prefWidth="200.0" visible="false">
+         <children>
+            <DialogPane fx:id="addBalanceDialogPane" cache="true" depthTest="ENABLE" headerText="Enter value: " maxHeight="200.0" maxWidth="200.0" minHeight="200.0" minWidth="200.0" prefHeight="200.0" prefWidth="200.0" StackPane.alignment="CENTER">
+               <opaqueInsets>
+                  <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+               </opaqueInsets>
+               <padding>
+                  <Insets bottom="20.0" left="20.0" right="20.0" top="30.0" />
+               </padding>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+               <content>
+                  <StackPane maxHeight="200.0" minHeight="176.0" nodeOrientation="LEFT_TO_RIGHT" prefHeight="176.0" prefWidth="160.0">
+                     <children>
+                        <TextField fx:id="clientAddBalanceTextField" maxHeight="30.0" maxWidth="140.0" minHeight="30.0" minWidth="140.0" prefColumnCount="1" prefHeight="30.0" prefWidth="140.0" StackPane.alignment="TOP_LEFT">
+                           <StackPane.margin>
+                              <Insets top="15.0" />
+                           </StackPane.margin>
+                        </TextField>
+                        <Button fx:id="addBalanceAcceptButton" alignment="CENTER" mnemonicParsing="false" onAction="#addBalanceAcceptOnClick" text="Accept" StackPane.alignment="BOTTOM_LEFT" />
+                        <Button fx:id="addBalanceCancelButton" mnemonicParsing="false" onAction="#addBalanceCancelOnClick" text="Cancel" StackPane.alignment="BOTTOM_RIGHT" />
+                     </children>
+                  </StackPane>
+               </content>
+            </DialogPane>
          </children>
       </StackPane>
    </children>
